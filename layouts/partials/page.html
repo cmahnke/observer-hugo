@@ -16,14 +16,18 @@
       {{ $title = printf "<a href=\"%s\">%s</a>" .Params.linkTarget .Params.linkTitle | safeHTML }}
     {{ end }}
     {{ if or (not .Params.postType) (ne .Params.postType "video") }}
-      <div class="title">
-        <h1>{{ $title }}</h1>
-      </div>
+      {{ if not .Site.Params.hideTitle }}
+        <div class="title">
+          <h1>{{ $title }}</h1>
+        </div>
+      {{ end }}
     {{ end }}
     <div class="caption">
       {{ .Content }}
     </div>
-    {{ partial "viewer.html" . }}
+    {{ if (.Resources) }}
+      {{ partial "pdf-viewer.html" . }}
+    {{ end }}
     {{ if not .Params.metaPage }}
       <div class="metadata">
         <div class="date">
