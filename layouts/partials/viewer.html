@@ -1,0 +1,30 @@
+{{/* Include PDF viewer */}}
+{{ if (.Resources) }}
+    {{ with .Page.Resources.GetMatch "viewer" }}
+        {{ $divId := printf "viewer-%s" (delimit (shuffle (seq 1 9)) "") }}
+        <div class="viewer">
+            {{ $pdfObjectLib := resources.Get "js/pdfobject/pdfobject.js" }}
+            {{ $js := slice $pdfObjectLib | resources.Concat "js/pdf.js" | minify | fingerprint }}
+            <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+            <div id="{{- $divId -}}"></div>
+            <script type="text/javascript">
+                var options = {
+                    pdfOpenParams: {
+                        navpanes: 1,
+                        toolbar: 1,
+                        statusbar: 1,
+                        scrollbar: 1,
+                        view: "FitH"
+                    },
+                    //forcePDFJS: true,
+                    PDFJS_URL: "/js/pdfjs/web/viewer.html"
+                };
+
+                var myPDF = PDFObject.embed("{{ .Permalink }}", "#{{- $divId -}}", options);
+            </script>
+        </div>
+        <div class="share">
+            <a href="{{ .Name }}" class="pdf-link">PDF Download</a>
+        </div>
+    {{ end }}
+{{ end }}

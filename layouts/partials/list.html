@@ -1,0 +1,58 @@
+<div id="content">
+    {{ $pages := .Site.RegularPages }}
+    {{ $paginator := .Paginate (where $pages "Params.displayinlist" "!=" false) -}}
+    {{- range $paginator.Pages -}}
+      {{ $type := "text" }}
+      {{ if .Params.postType }}
+        {{ $type = .Params.postType }}
+      {{ end }}
+      <div class="post {{ $type }}">
+        {{ if and .Params.postType (eq .Params.postType "video") }}
+          <div class="wide">
+            <div class="videoWrapper">
+              <iframe width="700" height="394" id="youtube_iframe" src="{{ .Params.videoSrc }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+          </div>
+        {{ end }}
+        <div class="narrow">
+          {{ $title := .Title }}
+          {{ if and .Params.postType (eq .Params.postType "link") }}
+            {{ $title = printf "<a href=\"%s\">%s</a>" .Params.linkTarget .Params.linkTitle | safeHTML }}
+          {{ end }}
+          {{ if or (not .Params.postType) (ne .Params.postType "video") }}
+            <div class="title">
+              <h1>{{ $title }}</h1>
+            </div>
+          {{ end }}
+          <div class="caption">
+            {{ .Content }}
+          </div>
+          {{ partial "viewer.html" . }}
+          <div class="metadata">
+            <div class="date">
+              <a href="{{ .RelPermalink }}">
+                {{- partial "date.html" (dict "date" .Date "language" $.Page.Language "months" $.Site.Data.months) -}}
+              </a>
+              {{ if .Params.tumblr_url }}
+                <span class="tumblr-url">
+                  <a href="{{ .Params.tumblr_url }}">Original auf Tumblr</a>
+                </span>
+              {{ end }}
+            </div>
+          </div>
+      </div>
+    </div>
+  {{ end }}
+
+  {{ if or ($paginator.HasPrev) ($paginator.HasNext) -}}
+    <h2 class="pagination">
+      {{ if $paginator.HasPrev }}
+        <a class="back-next" href="{{ $paginator.Prev.URL }}">Back</a>
+      {{ end }}
+      {{ if $paginator.HasNext }}
+        <a class="back-next" href="{{ $paginator.Next.URL }}">Next</a>
+      {{ end }}
+    </h2>
+  {{- end }}
+
+</div>
