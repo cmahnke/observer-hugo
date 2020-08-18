@@ -38,12 +38,15 @@
     {{ if hasPrefix .Page.File.Path "about" }}
         {{ $class = "about" }}
     {{ end }}
+    {{ if .Params.metaPage }}
+        {{ $class = printf "%s %s" $class "meta" }}
+    {{ end }}
     <body class="{{ $class }}">
       <div id="page">
         {{ partial "header.html" . }}
-
-        {{ block "content" . }}{{ end }}
-
+          <div id="content">
+              {{ block "content" . }}{{ end }}
+          </div>
         {{ partial "footer.html" . }}
       </div>
   </body>
