@@ -1,7 +1,7 @@
 {{/* Include PDF viewer */}}
 {{ with .Page.Resources.GetMatch "pdf-viewer" }}
     {{ $divId := printf "viewer-%s" (delimit (shuffle (seq 1 9)) "") }}
-    <div class="viewer">
+    <div class="pdf-viewer">
         {{ $pdfObjectLib := resources.Get "js/pdfobject/pdfobject.js" }}
         {{ $js := slice $pdfObjectLib | resources.Concat "js/pdf.js" | minify | fingerprint }}
         <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>

@@ -3,11 +3,11 @@
       {{ partial "menu.html" .}}
   </div>
   <div class="colophon">
-    <p>&copy; {{ .Title }} {{ .Site.Params.copyrightYears }}</p>
+    {{ if .Site.Params.copyrightYears }}
+        <p>&copy; {{ .Title }} {{ .Site.Params.copyrightYears }}</p>
+    {{ end }}
     <p class="license">
-      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">
-        <img alt="Creative Commons License" src="/images/cc88x31.png" /></a><br />
-        This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+        {{ i18n "cc" | safeHTML }}
     </p>
     <p class="projektemacher">
         {{ .Site.Title }} ist ein <a href="https://projektemacher.org">Projektemacher</a> Blog<img src="/images/cm.svg" style="height: 16px; margin-left: .5rem; vertical-align: middle;">

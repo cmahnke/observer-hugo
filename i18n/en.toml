@@ -1,0 +1,20 @@
+# Pagination
+[next_page]
+other = "Next"
+
+[previous_page]
+other = "Back"
+
+# Languages
+[en]
+other = "English"
+
+[de]
+other = "German"
+
+# Footer
+[cc]
+other = "<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\"><img alt=\"Creative Commons License\" style=\"border-width:0\" src=\"https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png\" /></a><br />This work is licensed under a <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>."
+
+[projektemacher]
+other = "is a <a href=\"https://projektemacher.org/en/\">Projektemacher</a> blog<img src=\"/images/cm.svg\" style=\"height: 16px; margin-left: .5rem; vertical-align: middle;\">"

@@ -10,10 +10,10 @@
 {{ if or ($paginator.HasPrev) ($paginator.HasNext) -}}
 <h2 class="pagination">
   {{ if $paginator.HasPrev }}
-    <a class="back-next" href="{{ $paginator.Prev.URL }}">Back</a>
+    <a class="back-next" href="{{ $paginator.Prev.URL }}">{{ i18n "previous_page" }}</a>
   {{ end }}
   {{ if $paginator.HasNext }}
-    <a class="back-next" href="{{ $paginator.Next.URL }}">Next</a>
+    <a class="back-next" href="{{ $paginator.Next.URL }}">{{ i18n "next_page" }}</a>
   {{ end }}
 </h2>
 {{- end }}
