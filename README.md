@@ -1,6 +1,6 @@
 Observer theme for Hugo
 -----------------------
-** If you've found this repository by searching Google or GitHub, read this file carefully since it might be not what you expect!**
+**If you've found this repository by searching Google or GitHub, read this file carefully since it might be not what you expect!**
 
 # Introduction
 
