@@ -10,7 +10,11 @@
       </div>
   </div>
 {{ end }}
-  <div class="narrow">
+  {{ $postClass := "narrow" }}
+  {{ if .Site.Params.widePosts }}
+    {{ $postClass = "wide" }}
+  {{ end }}
+  <div class="{{ $postClass }}">
     {{ $title := .Title }}
     {{ if and .Params.postType (eq .Params.postType "link") }}
       {{ $title = printf "<a href=\"%s\">%s</a>" .Params.linkTarget .Params.linkTitle | safeHTML }}

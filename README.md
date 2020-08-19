@@ -45,8 +45,9 @@ theme = "observer-hugo"
 
 * `copyrightYears` - String - Sets the copyright years in the footer
 * `logo` - String - Link to the logo in the header
-* `linkTumblr`  - Boolean - Include a link to Tumbler if the parameter `tumblr_url` is set in the front matter
-* `hideTitle`  - Boolean - Hide titles in posts and list view.
+* `linkTumblr` - Boolean - Include a link to Tumbler if the parameter `tumblr_url` is set in the front matter
+* `hideTitle` - Boolean - Hide titles in posts and list view.
+* `widePosts` - Boolean - Display posts wide 
 
 ## Page (front matter)
 
