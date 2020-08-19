@@ -47,7 +47,7 @@ theme = "observer-hugo"
 * `logo` - String - Link to the logo in the header
 * `linkTumblr` - Boolean - Include a link to Tumbler if the parameter `tumblr_url` is set in the front matter
 * `hideTitle` - Boolean - Hide titles in posts and list view.
-* `widePosts` - Boolean - Display posts wide 
+* `widePosts` - Boolean - Display posts wide
 
 ## Page (front matter)
 
@@ -82,6 +82,22 @@ The listed partials add some viewer capabilities depending on front matter confi
 
 ## `pdf-viewer`
 
+### Configuration
+
+Make sure the required JavaScript libraries can be found (see "JavaScript dependencies" section), add the following to `config.toml`
+
+```
+    [[module.mounts]]
+        source = "node_modules/pdfjs-dist"
+        target = "static/js/pdfjs"
+
+    [[module.mounts]]
+        source = "node_modules/pdfobject"
+        target = "assets/js/pdfobject"
+```
+
+### Usage
+
 Just add something like the following to the front matter
 
 ```
@@ -92,6 +108,41 @@ resources:
 
 Make sure the `name` is `pdf-viewer`, currently you can only attach one PDF file to a post, but it can have multiple pages.
 This partial tries to use the PDF viewer of your browser, if you also have installed PDF.js using `yarn` (see "JavaScript Dependencies" section). It will fall back to a JavaScript only solution, if the browser can't display PDF on it's own.
+
+## `image-viewer`
+
+### Configuration
+
+Make sure the required JavaScript libraries can be found (see "JavaScript dependencies" section), add the following to `config.toml`
+
+```
+    [[module.mounts]]
+        source = "node_modules/lightgallery/dist/js"
+        target = "assets/js/lightgallery"
+
+    [[module.mounts]]
+        source = "node_modules/lightgallery/dist/css"
+        target = "assets/css/lightgallery"
+
+    [[module.mounts]]
+        source = "node_modules/lightgallery/dist/fonts"
+        target = "static/fonts/lightgallery"
+
+    [[module.mounts]]
+        source = "node_modules/lightgallery/dist/img"
+        target = "static/images/lightgallery"
+```
+
+### Usage
+
+Just add something like the following to the front matter, you can als add more or less `src` entries.
+
+```
+resources:
+- src: "tumblr_pq1ikqZclB1vky613o1_1280.jpg"
+- src: "tumblr_pq1ikqZclB1vky613o2_400.png"
+- src: "tumblr_pq1ikqZclB1vky613o3_1280.jpg"
+```
 
 # Styles (SCSS)
 
@@ -155,6 +206,12 @@ If you also want the viewer functionality run:
 
 ```
 yarn add jquery pdfjs-dist pdfobject
+```
+
+To get the image viewer you shouls addtional run
+
+```
+yarn add lightgallery
 ```
 
 # Acknowledgements

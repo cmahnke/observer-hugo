@@ -1,0 +1,28 @@
+{{ $maxWidth := 1280 }}
+{{ $images := slice }}
+{{/* create variants */}}
+{{- range .Resources.ByType "image" -}}
+    {{- $image := . -}}
+    {{- $imageDisplay := $image -}}
+    {{ if gt $imageDisplay.Width $maxWidth }}
+        {{ $image = $imageDisplay.Resize (printf "%sx" $maxWidth) }}
+    {{ end }}
+    {{ $thumb := $imageDisplay.Resize "80x" }}
+    {{ $images = $images | append (dict "orig" $image "front" $imageDisplay "thumb" $thumb) }}
+{{- end -}}
+
+<div class="image-viewer">
+    {{- $i := 0 -}}
+    {{- range $images -}}
+    {{/*
+        {{ if eq $i 0 }}
+            <figure>
+                <img src="{{ $imageDisplay.RelPermalink }}">
+            </figure>
+        {{ end }}
+    */}}
+        {{ printf "%#v" . }}
+
+        {{- $i = add $i 1 -}}
+    {{ end }}
+<div>
