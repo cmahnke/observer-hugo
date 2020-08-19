@@ -1,4 +1,6 @@
 {{ $maxWidth := 1280 }}
+{{ $thumbsWidth := 120 }}
+{{ $caption := "View larger images" }}
 {{ $images := slice }}
 {{ $postTitle := replace (lower .Title) " " "_" }}
 {{ $id := printf "%s-%s" $postTitle (delimit (shuffle (seq 1 9)) "") }}
@@ -7,23 +9,24 @@
     {{- $image := . -}}
     {{- $imageDisplay := $image -}}
     {{ if gt $imageDisplay.Width $maxWidth }}
-        {{ $image = $imageDisplay.Resize (printf "%sx" $maxWidth) }}
+        {{ $image = $imageDisplay.Resize (printf "%dx" $maxWidth) }}
     {{ end }}
-    {{ $thumb := $imageDisplay.Resize "80x" }}
+    {{ $thumb := $imageDisplay.Resize (printf "%dx" $thumbsWidth) }}
     {{ $images = $images | append (dict "orig" $image "front" $imageDisplay "thumb" $thumb) }}
 {{- end -}}
 
 <div class="image-viewer">
+    <div class="caption">{{ $caption }}</div>
     <div id="{{ $id }}">
         {{- $i := 0 -}}
         {{- range $images -}}
           <a href="{{ (index . "orig").RelPermalink }}">
-              <img src="{{ (index . "thumb").RelPermalink }}" />
+              <img class="viewer-thumb" src="{{ (index . "thumb").RelPermalink }}" />
           </a>
           {{- $i = add $i 1 -}}
         {{ end }}
     </div>
-<div>
+</div>
 <script type="text/javascript">
     $('#{{ $id | safeJS }}').lightGallery(
         { share: false,

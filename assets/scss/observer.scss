@@ -827,6 +827,8 @@ body.about {
     }
 }
 
+// lightGallery
+
 @font-face {
     font-family: lg;
     src: url($lg-font-path + '/lg.eot?n1z373');
@@ -841,4 +843,39 @@ body.about {
 .lg-outer .lg-item {
     background: url($lg-image-path + '/loading.gif')no-repeat 50%;
     display: none!important
+}
+
+.image-viewer {
+    margin: 0 10%;
+    background: #293133;
+    border-radius: .8rem;
+    padding: 1rem 0;
+
+    .caption {
+        font-family: $font-header, futura, helvetica, arial, sans-serif;
+        color: #fff;
+        font-weight: bold;
+        margin: auto;
+    }
+
+    div {
+        display: flex;
+        justify-content: center;
+        align-content: space-evenly;
+        align-items: flex-end;
+
+        a {
+            display: inline-block;
+            margin: 1rem;
+            border-bottom: unset;
+        }
+
+        .viewer-thumb {
+            transition: transform .2s;
+        }
+
+        .viewer-thumb:hover {
+            transform: scale(1.1);
+        }
+    }
 }

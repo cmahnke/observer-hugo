@@ -48,6 +48,7 @@ theme = "observer-hugo"
 * `linkTumblr` - Boolean - Include a link to Tumbler if the parameter `tumblr_url` is set in the front matter
 * `hideTitle` - Boolean - Hide titles in posts and list view.
 * `widePosts` - Boolean - Display posts wide
+* `enableImageViewer` - Boolean - Include Lightbox for image resources
 
 ## Page (front matter)
 

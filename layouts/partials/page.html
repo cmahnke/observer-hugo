@@ -30,7 +30,9 @@
       {{ .Content }}
     </div>
     {{ if (.Resources) }}
-      {{ partial "image-viewer.html" . }}
+      {{ if .Site.Params.enableImageViewer }}
+        {{ partial "image-viewer.html" . }}
+      {{ end }}
       {{ partial "pdf-viewer.html" . }}
     {{ end }}
     {{ if not .Params.metaPage }}
