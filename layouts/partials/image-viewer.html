@@ -1,5 +1,7 @@
 {{ $maxWidth := 1280 }}
 {{ $images := slice }}
+{{ $postTitle := replace (lower .Title) " " "_" }}
+{{ $id := printf "%s-%s" $postTitle (delimit (shuffle (seq 1 9)) "") }}
 {{/* create variants */}}
 {{- range .Resources.ByType "image" -}}
     {{- $image := . -}}
@@ -12,17 +14,20 @@
 {{- end -}}
 
 <div class="image-viewer">
-    {{- $i := 0 -}}
-    {{- range $images -}}
-    {{/*
-        {{ if eq $i 0 }}
-            <figure>
-                <img src="{{ $imageDisplay.RelPermalink }}">
-            </figure>
+    <div id="{{ $id }}">
+        {{- $i := 0 -}}
+        {{- range $images -}}
+          <a href="{{ (index . "orig").RelPermalink }}">
+              <img src="{{ (index . "thumb").RelPermalink }}" />
+          </a>
+          {{- $i = add $i 1 -}}
         {{ end }}
-    */}}
-        {{ printf "%#v" . }}
-
-        {{- $i = add $i 1 -}}
-    {{ end }}
+    </div>
 <div>
+<script type="text/javascript">
+    $('#{{ $id | safeJS }}').lightGallery(
+        { share: false,
+          autoplay: false,
+          autoplayControls: false
+        });
+</script>

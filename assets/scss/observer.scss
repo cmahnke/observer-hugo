@@ -9,6 +9,10 @@ $font-header: futura !default;
 $font-title: futura !default;
 $font-body: georgia !default;
 $font-sec: futura !default;
+// lightGallery settings
+$lg-font-path: /fonts/lightgallery !default;
+$lg-image-path: /images/lightgallery !default;
+
 
 body {
     color: $color-body-text;
@@ -821,4 +825,20 @@ body.about {
     .cloud-tag {
         padding: 0.4rem;
     }
+}
+
+@font-face {
+    font-family: lg;
+    src: url($lg-font-path + '/lg.eot?n1z373');
+    src: url($lg-font-path + '/lg.eot?#iefixn1z373') format("embedded-opentype"),
+         url($lg-font-path + '/lg.woff?n1z373')format("woff"),
+         url($lg-font-path + '/lg.ttf?n1z373')format("truetype"),
+         url($lg-font-path + '/lg.svg?n1z373#lg')format("svg");
+    font-weight: 400;
+    font-style: normal
+}
+
+.lg-outer .lg-item {
+    background: url($lg-image-path + '/loading.gif')no-repeat 50%;
+    display: none!important
 }
