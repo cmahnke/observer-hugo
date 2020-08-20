@@ -17,7 +17,7 @@
                 {{ $image = $imageDisplay.Resize (printf "%dx" $maxWidth) }}
             {{ end }}
             {{ if eq $image.MediaType.SubType "png" }}
-              {{ $image = $imageDisplay.Resize (printf "%dx %s" $imageDisplay.Width  "jpg") }}
+              {{ $image = $imageDisplay.Resize (printf "%dx %s" $imageDisplay.Width "jpg") }}
             {{ end }}
             {{ $thumb := $imageDisplay.Resize (printf "%dx jpg" $thumbsWidth) }}
             {{ $images = $images | append (dict "orig" $image "front" $imageDisplay "thumb" $thumb) }}
