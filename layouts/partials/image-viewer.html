@@ -16,7 +16,10 @@
             {{ if gt $imageDisplay.Width $maxWidth }}
                 {{ $image = $imageDisplay.Resize (printf "%dx" $maxWidth) }}
             {{ end }}
-            {{ $thumb := $imageDisplay.Resize (printf "%dx" $thumbsWidth) }}
+            {{ if eq $image.MediaType.SubType "png" }}
+              {{ $image = $imageDisplay.Resize (printf "%dx %s" $imageDisplay.Width  "jpg") }}
+            {{ end }}
+            {{ $thumb := $imageDisplay.Resize (printf "%dx jpg" $thumbsWidth) }}
             {{ $images = $images | append (dict "orig" $image "front" $imageDisplay "thumb" $thumb) }}
         {{ else }}
             <div class="image-viewer-error">Couldn't load image "{{ $src }}"</div>
@@ -31,7 +34,7 @@
     {{ else }}
         <div class="image-viewer-error">First image missing</div>
     {{ end }}
-    {{ if gt (len $images) 1 }}
+    {{ if gt (len $images) 0 }}
         <div class="thumbs">
             <div class="caption">{{ $caption }}</div>
             <div id="{{ $id }}">
