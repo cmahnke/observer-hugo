@@ -846,36 +846,83 @@ body.about {
 }
 
 .image-viewer {
-    margin: 0 10%;
-    background: #293133;
-    border-radius: .8rem;
-    padding: 1rem 0;
+    .front {
+        margin-bottom: 2rem;
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 30px auto;
+        border-radius: 2px;
+    }
+    .thumbs {
+        margin: 0 auto;
+        background: #293133;
+        border-radius: .8rem;
+        padding: 1rem 0;
+        width: fit-content;
+        max-width: 95%;
+        min-width: 50%;
 
-    .caption {
-        font-family: $font-header, futura, helvetica, arial, sans-serif;
-        color: #fff;
-        font-weight: bold;
-        margin: auto;
+        .caption {
+            font-family: $font-header, futura, helvetica, arial, sans-serif;
+            color: #fff;
+            font-weight: bold;
+            margin: auto;
+        }
+
+        div {
+            display: flex;
+            justify-content: center;
+            align-content: space-evenly;
+            align-items: flex-end;
+            gap: 1rem;
+            flex-wrap: wrap;
+            padding: 1rem;
+
+            a {
+                display: inline-block;
+                border-bottom: unset;
+            }
+
+            .viewer-thumb {
+                transition: transform .2s;
+            }
+
+            .viewer-thumb:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+// Taken from https://css-tricks.com/snippets/css/simple-and-nice-blockquote-styling/
+.quote {
+    .quote-body {
+        background: #f9f9f9;
+        border-left: 10px solid #ccc;
+        margin: 1.5em 10px;
+        padding: 0.5em 10px;
+
+        p {
+            display: inline;
+        }
     }
 
-    div {
-        display: flex;
-        justify-content: center;
-        align-content: space-evenly;
-        align-items: flex-end;
-
-        a {
-            display: inline-block;
-            margin: 1rem;
-            border-bottom: unset;
-        }
-
-        .viewer-thumb {
-            transition: transform .2s;
-        }
-
-        .viewer-thumb:hover {
-            transform: scale(1.1);
-        }
+    .quote-body:before {
+        color: #ccc;
+        content: open-quote;
+        font-size: 4em;
+        line-height: 0.1em;
+        margin-right: 0.25em;
+        vertical-align: -0.4em;
     }
+}
+
+.image-viewer-error {
+    margin: 1em;
+    padding: 1em;
+    background: red;
+    border-radius: 1rem;
+    font-size: x-large;
+    font-weight: bolder;
 }

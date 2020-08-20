@@ -1,31 +1,49 @@
 {{ $maxWidth := 1280 }}
-{{ $thumbsWidth := 120 }}
-{{ $caption := "View larger images" }}
+{{ $thumbsWidth := 250 }}
+{{ $caption := "View more images" }}
 {{ $images := slice }}
 {{ $postTitle := replace (lower .Title) " " "_" }}
 {{ $id := printf "%s-%s" $postTitle (delimit (shuffle (seq 1 9)) "") }}
+
 {{/* create variants */}}
-{{- range .Resources.ByType "image" -}}
-    {{- $image := . -}}
-    {{- $imageDisplay := $image -}}
-    {{ if gt $imageDisplay.Width $maxWidth }}
-        {{ $image = $imageDisplay.Resize (printf "%dx" $maxWidth) }}
+{{- range .Params.resources }}
+    {{ if and .src (not .name) }}
+        {{ $src := .RelPermalink }}
+        {{- $image := $.Resources.GetMatch .src -}}
+        {{ if and $image  }}
+            {{- $imageDisplay := $image -}}
+            {{ if gt $imageDisplay.Width $maxWidth }}
+                {{ $image = $imageDisplay.Resize (printf "%dx" $maxWidth) }}
+            {{ end }}
+            {{ $thumb := $imageDisplay.Resize (printf "%dx" $thumbsWidth) }}
+            {{ $images = $images | append (dict "orig" $image "front" $imageDisplay "thumb" $thumb) }}
+        {{ else }}
+            <div class="image-viewer-error">Couldn't load image "{{ $src }}"</div>
+        {{ end }}
     {{ end }}
-    {{ $thumb := $imageDisplay.Resize (printf "%dx" $thumbsWidth) }}
-    {{ $images = $images | append (dict "orig" $image "front" $imageDisplay "thumb" $thumb) }}
 {{- end -}}
 
 <div class="image-viewer">
-    <div class="caption">{{ $caption }}</div>
-    <div id="{{ $id }}">
-        {{- $i := 0 -}}
-        {{- range $images -}}
-          <a href="{{ (index . "orig").RelPermalink }}">
-              <img class="viewer-thumb" src="{{ (index . "thumb").RelPermalink }}" />
-          </a>
-          {{- $i = add $i 1 -}}
-        {{ end }}
-    </div>
+    {{ if (index $images 0) }}
+        {{ $firstImage := index (index $images 0) "front" }}
+        <img class="front" src="{{ $firstImage.RelPermalink }}">
+    {{ else }}
+        <div class="image-viewer-error">First image missing</div>
+    {{ end }}
+    {{ if gt (len $images) 1 }}
+        <div class="thumbs">
+            <div class="caption">{{ $caption }}</div>
+            <div id="{{ $id }}">
+                {{- $i := 0 -}}
+                {{- range $images -}}
+                  <a href="{{ (index . "orig").RelPermalink }}">
+                      <img class="viewer-thumb" src="{{ (index . "thumb").RelPermalink }}" />
+                  </a>
+                  {{- $i = add $i 1 -}}
+                {{ end }}
+            </div>
+        </div>
+    {{ end }}
 </div>
 <script type="text/javascript">
     $('#{{ $id | safeJS }}').lightGallery(

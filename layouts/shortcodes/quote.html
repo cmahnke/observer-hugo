@@ -1,0 +1,9 @@
+{{ $quote := .Get "quote" | markdownify }}
+{{ $link := .Get "link" }}
+<div class="quote">
+    {{ if $link }}<a href="{{ $link }}">{{ end }}
+    <div class="quote-body">
+        {{ $quote }}
+    </div>
+    {{ if $link }}</a>{{ end }}
+</div>

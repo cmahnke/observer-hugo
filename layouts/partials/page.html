@@ -26,13 +26,13 @@
         </div>
       {{ end }}
     {{ end }}
+    {{ if and (and .Resources .Site.Params.enableImageViewer) (not .Params.disableImageViewer) }}
+      {{ partial "image-viewer.html" . }}
+    {{ end }}
     <div class="caption">
       {{ .Content }}
     </div>
     {{ if (.Resources) }}
-      {{ if .Site.Params.enableImageViewer }}
-        {{ partial "image-viewer.html" . }}
-      {{ end }}
       {{ partial "pdf-viewer.html" . }}
     {{ end }}
     {{ if not .Params.metaPage }}
