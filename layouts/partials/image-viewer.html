@@ -4,13 +4,14 @@
 {{ $images := slice }}
 {{ $postTitle := replace (lower .Title) " " "_" }}
 {{ $id := printf "%s-%s" $postTitle (delimit (shuffle (seq 1 9)) "") }}
+{{ $id = $id | replaceRE "[.!:?\"'()\\[\\]\\\\]" "" }}
 
 {{/* create variants */}}
 {{- range .Params.resources }}
     {{ if and .src (not .name) }}
         {{ $src := .RelPermalink }}
         {{- $image := $.Resources.GetMatch .src -}}
-        {{ if and $image  }}
+        {{ if $image }}
             {{- $imageDisplay := $image -}}
             {{ if gt $imageDisplay.Width $maxWidth }}
                 {{ $image = $imageDisplay.Resize (printf "%dx" $maxWidth) }}
