@@ -50,7 +50,14 @@
         <link href="{{ $style.RelPermalink }}" rel="stylesheet" integrity="{{ $style.Data.Integrity }}">
     {{ end }}
 
-    <link rel="icon" href="{{ .Site.Params.favicon | default "/images/favicon.ico" | absURL }}">
+    {{ $faviconRelPrefix := "" }}
+    {{ if .Site.Params.svgIcon }}
+        <link rel="icon" type="image/svg+xml" href="{{ .Site.Params.svgIcon }}">
+        {{ $faviconRelPrefix = "alternate " }}
+    {{ end }}
+
+
+    <link rel="{{- $faviconRelPrefix }}icon" href="{{ .Site.Params.icon | default "/images/favicon.ico" | absURL }}">
     {{ hugo.Generator }}
   </head>
     {{- $class := "" -}}

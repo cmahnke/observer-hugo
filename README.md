@@ -49,6 +49,7 @@ theme = "observer-hugo"
 * `hideTitle` - Boolean - Hide titles in posts and list view.
 * `widePosts` - Boolean - Display posts wide
 * `enableImageViewer` - Boolean - Include Lightbox for image resources
+* `iconSvg` - URL part (string) - Path to a SVG icon
 
 ## Page (front matter)
 
@@ -102,6 +103,23 @@ Inserts a quote
 * `quote` - The text for the quote, markdown is allowed
 * `file` - The text taken from a file, will overwrite the contents of the `quote` parameter, markdown is allowed
 * `link` - A link to the source
+
+## `post-image`
+
+### Example
+
+```
+{{< post-image section="post" post="some-post" width="250" link="/tags/cool" caption="Cool Image" class="static-content-image" >
+```
+
+### Arguments
+
+* `section` - The section to get the post from
+* `post` - The name of the post - not tested with subsections
+* `width` - The width, used as attribut of `img` element
+* `class` - The CSS class to use (for the `figure` element)
+* `link` - A link for the image
+* `caption` - A caption for the image (`figcaption` element)
 
 # Partials
 
