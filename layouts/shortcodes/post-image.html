@@ -1,0 +1,14 @@
+{{ $section := .Get "section" }}
+{{ $post := .Get "post" }}
+{{ $width := .Get "width"  }}
+{{ $class := .Get "class" }}
+
+{{ $page := .Site.GetPage $section $post }}
+{{ $imageSrc := index $page.Params.src 0 }}
+{{ $image := $page.Resources.GetMatch .src }}
+
+{{ if $width }}
+ {{ $image = $image.Resize (printf "%sx %s" $width "jpg") }}
+{{ end }}
+
+<img src="{{ $image.RelPermalink }}" class="{{ $class }}">
