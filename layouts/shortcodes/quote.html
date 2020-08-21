@@ -1,4 +1,5 @@
 {{ $quote := .Get "quote" | markdownify }}
+{{ $from := .Get "from" | markdownify }}
 {{ if (.Get "file") }}
     {{ $quote = readFile (.Get "file") | markdownify }}
 {{ end }}
@@ -9,4 +10,7 @@
         {{ $quote }}
     </div>
     {{ if $link }}</a>{{ end }}
+    {{ if $from }}
+        <div class="quote-from">{{ $from }}</div>
+    {{ end }}
 </div>

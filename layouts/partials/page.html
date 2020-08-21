@@ -2,6 +2,9 @@
 {{ if .Params.postType }}
     {{ $type = .Params.postType }}
 {{ end }}
+{{ if .Params.metaPage }}
+    {{ $type = printf "%s %s" $type "meta" }}
+{{ end }}
 <div class="post {{ $type }}">
 {{ if and .Params.postType (eq .Params.postType "video") }}
   <div class="wide">

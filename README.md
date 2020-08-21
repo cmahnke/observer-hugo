@@ -95,7 +95,7 @@ Inserts a quote
 ### Example
 
 ```
-{{< quote quote="This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission." link="https://example.com/" >}}
+{{< quote quote="This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission." link="https://example.com/" from="Max Mustermann" >}}
 ```
 
 ### Arguments
@@ -103,6 +103,7 @@ Inserts a quote
 * `quote` - The text for the quote, markdown is allowed
 * `file` - The text taken from a file, will overwrite the contents of the `quote` parameter, markdown is allowed
 * `link` - A link to the source
+* `from` - The name to attribute the quote to, , markdown is allowed
 
 ## `post-image`
 
@@ -116,7 +117,7 @@ Inserts a quote
 
 * `section` - The section to get the post from
 * `post` - The name of the post - not tested with subsections
-* `width` - The width, used as attribut of `img` element
+* `width` - The width the image should be scaled to
 * `class` - The CSS class to use (for the `figure` element)
 * `link` - A link for the image
 * `caption` - A caption for the image (`figcaption` element)

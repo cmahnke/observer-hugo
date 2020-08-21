@@ -847,7 +847,7 @@ body.about {
 
 .image-viewer {
     margin-bottom: 1.5rem;
-    
+
     .front {
         margin-bottom: 2rem;
         display: block;
@@ -905,9 +905,11 @@ body.about {
         margin: 1.5em 10px;
         padding: 0.5em 10px;
 
+        /*
         p {
             display: inline;
         }
+        */
     }
 
     .quote-body:before {
@@ -918,6 +920,13 @@ body.about {
         margin-right: 0.25em;
         vertical-align: -0.4em;
     }
+
+    .quote-from {
+        float: right;
+        font-style: italic;
+        font-size: larger;
+        font-weight: bold;
+    }
 }
 
 .image-viewer-error {
@@ -927,4 +936,8 @@ body.about {
     border-radius: 1rem;
     font-size: x-large;
     font-weight: bolder;
+}
+
+.meta .post {
+    border-bottom: unset
 }
