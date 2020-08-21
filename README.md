@@ -63,29 +63,45 @@ theme = "observer-hugo"
 
 This shortcode replaces the one bundled by Hugo since the original doesn't work reliable with resources from page bundles. This is a [known Hugo bug](https://github.com/gohugoio/hugo/issues/4562).
 
-Example:
+### Example
 
 ```
 {{< figure src="89876235679_0.jpg" alt="Ein verschwommenes Bild" >}}
 ```
 
+### Arguments
+
+* See [`figure` shortcode](https://gohugo.io/content-management/shortcodes/#figure)
+
 ## `tagcloud`
 
 There are no options, bu you can use CSS to change the appearance, see below.
 
-Example:
+### Example
+
 ```
 {{< tagcloud >}}
 ```
+
+### Arguments
+
+* None
 
 ## `quote`
 
 Inserts a quote
 
-Example:
+### Example
+
 ```
 {{< quote quote="This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission." link="https://example.com/" >}}
 ```
+
+### Arguments
+
+* `quote` - The text for the quote, markdown is allowed
+* `file` - The text taken from a file, will overwrite the contents of the `quote` parameter, markdown is allowed
+* `link` - A link to the source
 
 # Partials
 
