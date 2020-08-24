@@ -44,11 +44,15 @@
     {{- if $lightgallery -}}
         {{- $lightgalleryStyle := resources.Get "css/lightgallery/lightgallery.css" -}}
         {{- $style = slice $lightgalleryStyle $ourStyle | resources.Concat "css/concated.css" | minify | fingerprint -}}
-        <link href="{{ $style.RelPermalink }}" rel="stylesheet" integrity="{{ $style.Data.Integrity }}">
     {{- else -}}
         {{- $style = slice $ourStyle | resources.Concat "css/concated.css" | minify | fingerprint -}}
-        <link href="{{ $style.RelPermalink }}" rel="stylesheet" integrity="{{ $style.Data.Integrity }}">
     {{ end }}
+    <link href="{{ $style.RelPermalink }}" rel="stylesheet" integrity="{{ $style.Data.Integrity }}">
+
+    {{/* External Styles - Fonts etc */}}
+    {{ range .Site.Params.stylesheets -}}
+        <link href="{{ . }}" rel="stylesheet">
+    {{- end -}}
 
     {{ $faviconRelPrefix := "" }}
     {{ if .Site.Params.svgIcon }}

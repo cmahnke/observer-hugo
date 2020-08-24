@@ -9,6 +9,7 @@ $font-header: futura !default;
 $font-title: futura !default;
 $font-body: georgia !default;
 $font-sec: futura !default;
+$font-menu: #{$font-body} !default;
 // lightGallery settings
 $lg-font-path: /fonts/lightgallery !default;
 $lg-image-path: /images/lightgallery !default;
@@ -165,7 +166,7 @@ h3 {
     margin-bottom: 80px;
     display: block;
     overflow: visible;
-    font-family: $font-header, futura, helvetica, arial, sans-serif;
+    font-family: $font-menu, georgia, serif;
 }
 
 #header a {
@@ -835,7 +836,6 @@ body.about {
             padding: 1rem 0;
             text-align: unset;
             height: 3rem;
-            // See
             display: flex;
             align-items: center;
 

@@ -50,6 +50,7 @@ theme = "observer-hugo"
 * `widePosts` - Boolean - Display posts wide
 * `enableImageViewer` - Boolean - Include Lightbox for image resources
 * `iconSvg` - URL part (string) - Path to a SVG icon
+* `stylesheets` - array of URLs (string) - URL(s) to external stylesheets - use this to integrate Google Fonts
 
 ## Page (front matter)
 
