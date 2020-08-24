@@ -2,6 +2,9 @@
 {{ if .Params.postType }}
     {{ $type = .Params.postType }}
 {{ end }}
+{{ if .Params.metaPage }}
+    {{ $type = printf "%s %s" $type "meta" }}
+{{ end }}
 <div class="post {{ $type }}">
 {{ if and .Params.postType (eq .Params.postType "video") }}
   <div class="wide">
@@ -10,7 +13,11 @@
       </div>
   </div>
 {{ end }}
-  <div class="narrow">
+  {{ $postClass := "narrow" }}
+  {{ if .Site.Params.widePosts }}
+    {{ $postClass = "wide" }}
+  {{ end }}
+  <div class="{{ $postClass }}">
     {{ $title := .Title }}
     {{ if and .Params.postType (eq .Params.postType "link") }}
       {{ $title = printf "<a href=\"%s\">%s</a>" .Params.linkTarget .Params.linkTitle | safeHTML }}
@@ -21,6 +28,9 @@
           <h1>{{ $title }}</h1>
         </div>
       {{ end }}
+    {{ end }}
+    {{ if and (and .Resources .Site.Params.enableImageViewer) (not .Params.disableImageViewer) }}
+      {{ partial "image-viewer.html" . }}
     {{ end }}
     <div class="caption">
       {{ .Content }}

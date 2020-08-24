@@ -9,6 +9,10 @@ $font-header: futura !default;
 $font-title: futura !default;
 $font-body: georgia !default;
 $font-sec: futura !default;
+// lightGallery settings
+$lg-font-path: /fonts/lightgallery !default;
+$lg-image-path: /images/lightgallery !default;
+
 
 // Nav
 $nav-mobile-bg-color: rgba(68,68,68,.4)  !default;
@@ -806,7 +810,7 @@ body.about {
     margin-top: 1rem;
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 740px) {
     #content img {
         width: 100%;
     }
@@ -942,4 +946,119 @@ body.about {
     .menu-title {
         display: none;
     }
+}
+
+// lightGallery
+
+@font-face {
+    font-family: lg;
+    src: url($lg-font-path + '/lg.eot?n1z373');
+    src: url($lg-font-path + '/lg.eot?#iefixn1z373') format("embedded-opentype"),
+         url($lg-font-path + '/lg.woff?n1z373')format("woff"),
+         url($lg-font-path + '/lg.ttf?n1z373')format("truetype"),
+         url($lg-font-path + '/lg.svg?n1z373#lg')format("svg");
+    font-weight: 400;
+    font-style: normal
+}
+
+.lg-outer .lg-item {
+    background: url($lg-image-path + '/loading.gif')no-repeat 50%;
+    display: none!important
+}
+
+.image-viewer {
+    margin-bottom: 1.5rem;
+
+    .front {
+        margin-bottom: 2rem;
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 30px auto;
+        border-radius: 2px;
+    }
+    .thumbs {
+        margin: 0 auto;
+        background: #293133;
+        border-radius: .8rem;
+        padding: 1rem 0;
+        width: fit-content;
+        max-width: 95%;
+        min-width: 75%;
+
+        .caption {
+            font-family: $font-header, futura, helvetica, arial, sans-serif;
+            color: #fff;
+            font-weight: bold;
+            margin: auto;
+        }
+
+        div {
+            display: flex;
+            justify-content: center;
+            align-content: space-evenly;
+            align-items: flex-end;
+            gap: 1rem;
+            flex-wrap: wrap;
+            padding: 1rem;
+
+            a {
+                display: inline-block;
+                border-bottom: unset;
+            }
+
+            .viewer-thumb {
+                transition: transform .2s;
+            }
+
+            .viewer-thumb:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+// Taken from https://css-tricks.com/snippets/css/simple-and-nice-blockquote-styling/
+.quote {
+    .quote-body {
+        background: #f9f9f9;
+        border-left: 10px solid #ccc;
+        margin: 1.5em 10px;
+        padding: 0.5em 10px;
+
+        /*
+        p {
+            display: inline;
+        }
+        */
+    }
+
+    .quote-body:before {
+        color: #ccc;
+        content: open-quote;
+        font-size: 4em;
+        line-height: 0.1em;
+        margin-right: 0.25em;
+        vertical-align: -0.4em;
+    }
+
+    .quote-from {
+        float: right;
+        font-style: italic;
+        font-size: larger;
+        font-weight: bold;
+    }
+}
+
+.image-viewer-error {
+    margin: 1em;
+    padding: 1em;
+    background: red;
+    border-radius: 1rem;
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+.meta .post {
+    border-bottom: unset
 }

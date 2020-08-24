@@ -7,39 +7,65 @@
     <meta http-equiv="Content-Language" content="{{ .Site.Language.Lang }}">
     {{ if hasPrefix .Page.Name "404" }}
         <meta http-equiv="refresh" content="15; URL={{ .Site.BaseURL }}">
-    {{ end }}
+    {{- end -}}
     {{ with .Site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
     <meta name="description" content="{{ .Description | default (.Summary | default .Site.Params.description ) }}">
     <meta name="keywords" content="{{ (delimit .Keywords ",") | default .Site.Params.keywords }}">
 
     {{ if .Permalink }}
        <base href="{{ .Permalink }}">
-     {{ end }}
-     <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
+    {{ end }}
+    <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
 
-     {{ if .Permalink }}
-       <link rel="canonical" href="{{ .Permalink }}">
-     {{ end }}
+    {{- if .Permalink -}}
+      <link rel="canonical" href="{{ .Permalink }}">
+    {{- end -}}
 
-    {{ $jqueryLib := resources.Get "js/jquery/jquery.js" }}
-    {{ $js := slice $jqueryLib | resources.Concat "js/concated.js" | minify | fingerprint }}
+    {{- $lightgallery := false -}}
+    {{- if (resources.Get "js/lightgallery/lightgallery-all.js") -}}
+        {{- $lightgallery = true -}}
+    {{ end -}}
+
+    {{- $jqueryLib := resources.Get "js/jquery/jquery.js" -}}
+    {{- $js := slice -}}
+    {{- if $lightgallery -}}
+        {{- $lightgalleryLib := resources.Get "js/lightgallery/lightgallery-all.js" }}
+        {{- $js = slice $jqueryLib $lightgalleryLib | resources.Concat "js/concated.js" | minify | fingerprint -}}
+    {{- else -}}
+        {{- $js = slice $jqueryLib | resources.Concat "js/concated.js" | minify | fingerprint -}}
+    {{- end }}
     <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
 
-    {{ $options := (dict "targetPath" "base.css" "outputStyle" "compressed") }}
-    {{ $ourTemplate := resources.Get "scss/base.scss" }}
-    {{ $ourStyle := $ourTemplate | resources.ExecuteAsTemplate "scss/base.scss" . | toCSS $options }}
-    {{ $style := slice $ourStyle | resources.Concat "css/concated.css" | minify | fingerprint }}
-    <link href="{{ $style.RelPermalink }}" rel="stylesheet" integrity="{{ $style.Data.Integrity }}">
+    {{ $options := (dict "targetPath" "base.css" "outputStyle" "compressed") -}}
+    {{- $ourTemplate := resources.Get "scss/base.scss" -}}
+    {{- $ourStyle := $ourTemplate | resources.ExecuteAsTemplate "scss/base.scss" . | toCSS $options -}}
 
-    <link rel="icon" href="{{ .Site.Params.favicon | default "/images/favicon.ico" | absURL }}">
+    {{- $style := slice -}}
+    {{- if $lightgallery -}}
+        {{- $lightgalleryStyle := resources.Get "css/lightgallery/lightgallery.css" -}}
+        {{- $style = slice $lightgalleryStyle $ourStyle | resources.Concat "css/concated.css" | minify | fingerprint -}}
+        <link href="{{ $style.RelPermalink }}" rel="stylesheet" integrity="{{ $style.Data.Integrity }}">
+    {{- else -}}
+        {{- $style = slice $ourStyle | resources.Concat "css/concated.css" | minify | fingerprint -}}
+        <link href="{{ $style.RelPermalink }}" rel="stylesheet" integrity="{{ $style.Data.Integrity }}">
+    {{ end }}
+
+    {{ $faviconRelPrefix := "" }}
+    {{ if .Site.Params.svgIcon }}
+        <link rel="icon" type="image/svg+xml" href="{{ .Site.Params.svgIcon }}">
+        {{ $faviconRelPrefix = "alternate " }}
+    {{ end }}
+
+
+    <link rel="{{- $faviconRelPrefix }}icon" href="{{ .Site.Params.icon | default "/images/favicon.ico" | absURL }}">
     {{ hugo.Generator }}
   </head>
-    {{ $class := "" }}
-    {{ if hasPrefix .Page.File.Path "about" }}
-        {{ $class = "about" }}
-    {{ end }}
-    {{ if .Params.metaPage }}
-        {{ $class = printf "%s %s" $class "meta" }}
+    {{- $class := "" -}}
+    {{- if hasPrefix .Page.File.Path "about" -}}
+        {{- $class = "about" -}}
+    {{- end -}}
+    {{- if .Params.metaPage -}}
+        {{- $class = printf "%s %s" $class "meta" -}}
     {{ end }}
     <body class="{{ $class }}">
       <div id="page">
