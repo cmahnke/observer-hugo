@@ -708,10 +708,6 @@ a.back-next {
     }
 }
 @media screen and (max-width: 740px) {
-    #page {
-        padding-left: 1em;
-        padding-right: 1em;
-    }
 
     #header {
         margin-bottom: 50px;
@@ -821,6 +817,7 @@ body.about {
 
     #page {
         padding: 0;
+        max-width: unset !important;
     }
 
     .fa-bars:before {
@@ -838,19 +835,27 @@ body.about {
             padding: 1rem 0;
             text-align: unset;
             height: 3rem;
+            // See
+            display: flex;
+            align-items: center;
 
             .menu-title {
                 display: unset;
 
                 a {
+                    vertical-align: middle;
                     padding-left: 1rem;
                     color: $color-header-text;
                     font-size: 2rem;
                     font-weight: bold;
                     display: unset;
-                    letter-spacing: 0.1rem;
-                    text-transform: uppercase;
+                    //letter-spacing: 0.1rem;
+                    //text-transform: uppercase;
                 }
+            }
+
+            .fill-spacer {
+                flex: auto;
             }
 
             ul {
@@ -941,6 +946,7 @@ body.about {
 }
 
 #footer {
+    .fill-spacer,
     #menu-toggle,
     .menu-button,
     .menu-title {
@@ -1025,12 +1031,6 @@ body.about {
         border-left: 10px solid #ccc;
         margin: 1.5em 10px;
         padding: 0.5em 10px;
-
-        /*
-        p {
-            display: inline;
-        }
-        */
     }
 
     .quote-body:before {
