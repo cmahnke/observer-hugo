@@ -1,4 +1,4 @@
-import 'pdfobject':
+import PDFObject from 'pdfobject';
 
 window.addPDFViewer = function (elemId, url, options) {
     if (options === undefined) {
