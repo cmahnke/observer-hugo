@@ -21,27 +21,31 @@
       <link rel="canonical" href="{{ .Permalink }}">
     {{- end -}}
 
-    {{- $lightgallery := false -}}
-    {{- if (resources.Get "js/lightgallery/lightgallery-all.js") -}}
-        {{- $lightgallery = true -}}
-    {{ end -}}
-
-    {{- $jqueryLib := resources.Get "js/jquery/jquery.js" -}}
-    {{- $js := slice -}}
-    {{- if $lightgallery -}}
-        {{- $lightgalleryLib := resources.Get "js/lightgallery/lightgallery-all.js" }}
-        {{- $js = slice $jqueryLib $lightgalleryLib | resources.Concat "js/concated.js" | minify | fingerprint -}}
-    {{- else -}}
-        {{- $js = slice $jqueryLib | resources.Concat "js/concated.js" | minify | fingerprint -}}
+    {{- $js := "" -}}
+    {{- $defines := dict "process.env.NODE_ENV" `"production"` -}}
+    {{- $opts := dict "targetPath" "js/main.js" "defines" $defines "minify" true -}}
+    {{- if and .Site.Params.enableImageViewer .Site.Params.enablePDFViewer -}}
+        {{- $viewers := slice (resources.Get "js/image-viewer.js") (resources.Get "js/pdf-viewer.js") | js.Build $opts -}}
+        {{- $js = slice $viewers -}}
+    {{- else if .Site.Params.enableImageViewer -}}
+        {{- $imageViewer := resources.Get "js/image-viewer.js" | js.Build $opts -}}
+        {{- $js = slice $imageViewer -}}
+    {{- else if .Site.Params.enablePDFViewer -}}
+        {{- $pdfViewer := resources.Get "js/pdf-viewer.js" | js.Build $opts -}}
+        {{- $js = slice $pdfViewer -}}
     {{- end }}
-    <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
 
-    {{ $options := (dict "targetPath" "base.css" "outputStyle" "compressed") -}}
+    {{- if ne $js "" -}}
+        {{- $js = $js | resources.Concat "js/concated.js" | minify | fingerprint -}}
+        <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+    {{ end }}
+
+    {{- $options := (dict "targetPath" "base.css" "outputStyle" "compressed") -}}
     {{- $ourTemplate := resources.Get "scss/base.scss" -}}
     {{- $ourStyle := $ourTemplate | resources.ExecuteAsTemplate "scss/base.scss" . | toCSS $options -}}
 
     {{- $style := slice -}}
-    {{- if $lightgallery -}}
+    {{- if .Site.Params.enableImageViewer -}}
         {{- $lightgalleryStyle := resources.Get "css/lightgallery/lightgallery.css" -}}
         {{- $style = slice $lightgalleryStyle $ourStyle | resources.Concat "css/concated.css" | minify | fingerprint -}}
     {{- else -}}

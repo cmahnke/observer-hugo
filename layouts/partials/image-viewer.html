@@ -50,9 +50,5 @@
     {{ end }}
 </div>
 <script type="text/javascript">
-    $('#{{ $id | safeJS }}').lightGallery(
-        { share: false,
-          autoplay: false,
-          autoplayControls: false
-        });
+    addImageViewer($('#{{ $id | safeJS }}'));
 </script>
