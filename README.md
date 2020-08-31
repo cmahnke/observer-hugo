@@ -48,8 +48,10 @@ theme = "observer-hugo"
 * `linkTumblr` - Boolean - Include a link to Tumbler if the parameter `tumblr_url` is set in the front matter
 * `hideTitle` - Boolean - Hide titles in posts and list view.
 * `widePosts` - Boolean - Display posts wide
-* `enableImageViewer` - Boolean - Include Lightbox for image resources
+* `enableImageViewer` - Boolean - Include Lightbox for image resources (see configuration section below)
+* `enablePDFViewer` - Boolean - Include PDFObject and PDF.js for inline PDF (see configuration section below)
 * `iconSvg` - URL part (string) - Path to a SVG icon
+* `stylesheets` - array of URLs (string) - URL(s) to external stylesheets - use this to integrate Google Fonts
 
 ## Page (front matter)
 
@@ -137,9 +139,6 @@ Make sure the required JavaScript libraries can be found (see "JavaScript depend
         source = "node_modules/pdfjs-dist"
         target = "static/js/pdfjs"
 
-    [[module.mounts]]
-        source = "node_modules/pdfobject"
-        target = "assets/js/pdfobject"
 ```
 
 ### Usage
@@ -162,10 +161,6 @@ This partial tries to use the PDF viewer of your browser, if you also have insta
 Make sure the required JavaScript libraries can be found (see "JavaScript dependencies" section), add the following to `config.toml`
 
 ```
-    [[module.mounts]]
-        source = "node_modules/lightgallery/dist/js"
-        target = "assets/js/lightgallery"
-
     [[module.mounts]]
         source = "node_modules/lightgallery/dist/css"
         target = "assets/css/lightgallery"
@@ -256,13 +251,13 @@ yarn add jquery
 If you also want the viewer functionality run:
 
 ```
-yarn add jquery pdfjs-dist pdfobject
+yarn add jpdfjs-dist pdfobject
 ```
 
-To get the image viewer you shouls addtional run
+To get the image viewer you should addtionally run
 
 ```
-yarn add lightgallery
+yarn add lightgallery lg-fullscreen
 ```
 
 # Acknowledgements
