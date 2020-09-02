@@ -824,15 +824,25 @@ body.about {
 }
 
 @media screen and (max-width: 740px) {
-    #content img {
-        width: 100%;
+    #content {
+        box-sizing: border-box;
+        img {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+
+    .title h1 {
+        font-size: 24px;
     }
 
     .blog-title h1 {
         font-size: 4rem;
+        max-width: 100%;
     }
 
     #page {
+        box-sizing: border-box;
         padding: 0;
         max-width: unset !important;
     }
@@ -930,6 +940,11 @@ body.about {
                 }
             }
         }
+    }
+
+    .caption iframe {
+        display: block;
+        max-width: 100%;
     }
 
     #content {
