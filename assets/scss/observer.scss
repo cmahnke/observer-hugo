@@ -16,7 +16,8 @@ $lg-image-path: /images/lightgallery !default;
 
 
 // Nav
-$nav-mobile-bg-color: rgba(68,68,68,.4)  !default;
+$nav-mobile-bg-color: rgba(68,68,68,.4) !default;
+$nav-mobile-font: futura, helvetica, arial, sans-serif !default;
 // Icons
 $bars: "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='#{$color-header-text}' d='M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z'/%3E%3C/svg%3E";
 
@@ -741,6 +742,10 @@ a.back-next {
 }
 /* Own additions
 ********************************/
+.menu-title-short {
+  display: none;
+}
+
 .tumblr-url {
     float: right;
     text-align: right;
@@ -785,6 +790,12 @@ body.about {
     background-repeat: no-repeat;
 }
 
+@media screen and (max-width: 740px) {
+    body.about {
+        background-size: 20%;
+    }
+}
+
 .pdf-viewer {
     margin: auto;
 
@@ -823,9 +834,11 @@ body.about {
 
     .fa-bars:before {
         content: url("data:image/svg+xml, #{$bars}");
+        height: 24px;
+        width: 24px;
         display: inline-block;
         width: 1em;
-        vertical-align: middle;
+        vertical-align: top;
     }
 
     #header {
@@ -839,8 +852,7 @@ body.about {
             display: flex;
             align-items: center;
 
-            .menu-title {
-                display: unset;
+            .menu-title, .menu-title-short {
 
                 a {
                     vertical-align: middle;
@@ -849,10 +861,16 @@ body.about {
                     font-size: 2rem;
                     font-weight: bold;
                     display: unset;
-                    //letter-spacing: 0.1rem;
-                    //text-transform: uppercase;
+                    font-family: $nav-mobile-font;
+                    /*
+                    letter-spacing: 0.1rem;
+                    text-transform: uppercase;
+                    */
                 }
             }
+            .menu-title {
+                display: unset;
+              }
 
             .fill-spacer {
                 flex: auto;
@@ -872,6 +890,7 @@ body.about {
                             font-size: larger;
                             font-weight: bold;
                             display: block;
+                            font-family: $nav-mobile-font;
                         }
                     }
                 }
@@ -914,6 +933,22 @@ body.about {
 
     #content {
         padding: 1em;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    #header .links .menu-title a {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #header .links .menu-title {
+        display: none;
+    }
+
+    #header .links .menu-title-short {
+        display: block;
     }
 }
 

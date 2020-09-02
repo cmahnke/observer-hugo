@@ -1,4 +1,11 @@
 <div class="menu-title"><a href="/">{{ .Site.Title }}</a></div>
+<div class="menu-title-short"><a href="/">
+  {{- if .Site.Params.menuTitleShort -}}
+    {{- .Site.Params.menuTitleShort -}}
+  {{- else -}}
+    {{- .Site.Title -}}
+  {{- end -}}
+</a></div>
 <div class="fill-spacer"></div>
 <input type="checkbox" id="menu-toggle">
 <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
