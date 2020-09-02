@@ -713,6 +713,11 @@ a.back-next {
 
     #header {
         margin-bottom: 50px;
+
+        .blog-title img {
+            max-width: 80%;
+            margin: 1em auto;
+        }
     }
     /* WRANGLE TUMBLR VIDEO PLAYER */
     .iphone-video img {
@@ -862,10 +867,6 @@ body.about {
                     font-weight: bold;
                     display: unset;
                     font-family: $nav-mobile-font;
-                    /*
-                    letter-spacing: 0.1rem;
-                    text-transform: uppercase;
-                    */
                 }
             }
             .menu-title {
@@ -913,7 +914,7 @@ body.about {
 
             .menu-button {
                 display: block;
-                font-size: 2.4rem;
+                font-size: 1.8rem;
                 font-weight: 400;
                 padding-right: 1em;
                 color: #212121;
