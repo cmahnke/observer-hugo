@@ -1,7 +1,13 @@
-{{ $pages := .Pages }}
-{{ if .IsHome }}
-    {{ $pages = .Site.RegularPages }}
-{{ end }}
+{{- $pages := .Pages -}}
+{{- if .IsHome -}}
+    {{- $pages = .Site.RegularPages -}}
+{{- end -}}
+
+{{/* Sort sticky pages to top */}}
+{{ $stickyPages := where $pages "Params.sticky" "==" true }}
+{{ $nonStickyPages := where $pages "Params.sticky" "!=" true }}
+{{ $pages = union $stickyPages $nonStickyPages }}
+
 {{ $paginator := .Paginate (where $pages "Params.displayinlist" "!=" false) -}}
 {{- range $paginator.Pages -}}
     {{ partial "page.html" . }}

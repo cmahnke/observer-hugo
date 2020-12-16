@@ -344,7 +344,8 @@ ol {
 
 .caption img {
     display: block;
-    max-width: 100%;
+    /* max-width: 100%; */
+    max-width: inherit;
     height: auto;
     margin: 30px auto;
     border-radius: 2px;
@@ -1081,7 +1082,7 @@ body.about {
         background: #f9f9f9;
         border-left: 10px solid #ccc;
         margin: 1.5em 10px;
-        padding: 0.5em 10px;
+        padding: 1em 10px;
     }
 
     .quote-body:before {
@@ -1094,10 +1095,14 @@ body.about {
     }
 
     .quote-from {
-        float: right;
+        text-align: right;
         font-style: italic;
         font-size: larger;
         font-weight: bold;
+        margin-bottom: .6em;
+        a {
+            text-decoration: none;;
+        }
     }
 }
 
