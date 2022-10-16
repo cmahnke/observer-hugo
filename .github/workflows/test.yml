@@ -18,10 +18,6 @@ jobs:
         with:
           node-version-file: '.nvmrc'
 
-      - name: Install required dependencies
-        run: |
-          ./scripts/github/setup-dependencies.sh
-
       - name: Install Node dependencies
         run: |
           yarn install --ignore-scripts
