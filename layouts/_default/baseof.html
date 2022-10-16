@@ -46,7 +46,7 @@
 
     {{- $style := slice -}}
     {{- if .Site.Params.enableImageViewer -}}
-        {{- $lightgalleryStyle := resources.Get "css/lightgallery/lightgallery.css" -}}
+        {{- $lightgalleryStyle := resources.Get "css/lightgallery/lightgallery-bundle.css" -}}
         {{- $style = slice $lightgalleryStyle $ourStyle | resources.Concat "css/concated.css" | minify | fingerprint -}}
     {{- else -}}
         {{- $style = slice $ourStyle | resources.Concat "css/concated.css" | minify | fingerprint -}}
