@@ -14,12 +14,10 @@ lg-fullscreen@^1.2.1:
   dependencies:
     jquery ">=1.7.0"
 
-lightgallery@^1.8.2:
-  version "1.8.2"
-  resolved "https://registry.yarnpkg.com/lightgallery/-/lightgallery-1.8.2.tgz#00d7620aa99b717fb31d86001869791131f1dfd4"
-  integrity sha512-ubQ5rdKtEv/1LVv9r1UJdcZxUsxcicu3JPwP4bqi0MYfyv+JhKzlwD8MrwpvGdW7RbH/ZUrHokl17+MtxbiNxg==
-  dependencies:
-    jquery ">=1.7.0"
+lightgallery@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/lightgallery/-/lightgallery-2.7.0.tgz#faa1ff6c7338557f39a29a63228b77793afad95d"
+  integrity sha512-iozIJNxKl3wPWcspCmRdaSYpYy3PjloC8BN0PDwaDOoTA1hsu1IhZdWQWI5cGgMJvnksP94/smElMwn2HS5d3Q==
 
 pdfjs-dist@^2.5.207:
   version "2.5.207"
