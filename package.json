@@ -4,6 +4,6 @@
     "lg-fullscreen": "^1.2.1",
     "lightgallery": "^2.7.0",
     "pdfjs-dist": "^2.5.207",
-    "pdfobject": "^2.1.1"
+    "pdfobject": "^2.2.8"
   }
 }
