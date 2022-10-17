@@ -1024,6 +1024,18 @@ body.about {
     display: none!important
 }
 
+.lg-outer .lg-item:not(.lg-start-end-progress) {
+    background: url($lg-image-path + '/loading.gif')no-repeat 50%
+}
+
+.lg-comment-box .fb-comments {
+    height: 100%;
+    width: 100%;
+    background: url($lg-image-path + '/loading.gif')no-repeat 50% #fff;
+    overflow-y: auto;
+    display: inline-block
+}
+
 .image-viewer {
     margin-bottom: 1.5rem;
 
