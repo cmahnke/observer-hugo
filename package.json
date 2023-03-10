@@ -2,7 +2,7 @@
   "dependencies": {
     "jquery": "^3.6.4",
     "lightgallery": "^2.7.1",
-    "pdfjs-dist": "^3.3.122",
+    "pdfjs-dist": "^3.4.120",
     "pdfobject": "^2.2.8"
   }
 }
