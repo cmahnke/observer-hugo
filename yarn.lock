@@ -317,10 +317,10 @@ pdfjs-dist@^3.3.122:
   optionalDependencies:
     canvas "^2.11.0"
 
-pdfobject@^2.2.10:
-  version "2.2.10"
-  resolved "https://registry.yarnpkg.com/pdfobject/-/pdfobject-2.2.10.tgz#08653f9a9f86447ae84bd87b95d9718357c2beae"
-  integrity sha512-wmpTuiFO3KJMfzg2jInDFiMaXxZ4m6bH03PldxyY6ueCjeVC4zw2ievkaKS1yPKpV4OHSuhyD0LT9JzE6Qu14Q==
+pdfobject@^2.2.11:
+  version "2.2.11"
+  resolved "https://registry.yarnpkg.com/pdfobject/-/pdfobject-2.2.11.tgz#b0309dfa234083f326a462df14863c75970bd1f2"
+  integrity sha512-vGHG1+APo9+FQnnQsf36oHnpL7orJDkt8V3jRTQdvuajgJXBs1PbjA+gKsoiU1BOSNe9aSQubYWnW1LhNqurGw==
 
 readable-stream@^3.6.0:
   version "3.6.0"
