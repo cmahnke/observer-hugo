@@ -11,6 +11,8 @@
     {{ with .Site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
     <meta name="description" content="{{ .Description | default (.Summary | default .Site.Params.description ) }}">
     <meta name="keywords" content="{{ (delimit .Keywords ",") | default .Site.Params.keywords }}">
+    <meta name="projektemacher.org:build-date" content="{{ now }}">
+
 
     {{ if .Permalink }}
        <base href="{{ .Permalink }}">
@@ -72,8 +74,10 @@
     {{ hugo.Generator }}
   </head>
     {{- $class := "" -}}
-    {{- if hasPrefix .Page.File.Path "about" -}}
-        {{- $class = "about" -}}
+    {{- with .Page.File -}}
+      {{- if hasPrefix .Path "about" -}}
+          {{- $class = "about" -}}
+      {{- end -}}
     {{- end -}}
     {{- if .Params.metaPage -}}
         {{- $class = printf "%s %s" $class "meta" -}}
