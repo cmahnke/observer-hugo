@@ -12,7 +12,13 @@
     <meta name="description" content="{{ .Description | default (.Summary | default .Site.Params.description ) }}">
     <meta name="keywords" content="{{ (delimit .Keywords ",") | default .Site.Params.keywords }}">
     <meta name="projektemacher.org:build-date" content="{{ now }}">
-
+    {{- if ne .GitInfo nil -}}
+        <meta name="projektemacher.org:git-commit" content="{{ .GitInfo.AbbreviatedHash }}">
+    {{- end -}}
+    {{- $stats := $.Site.Data.stats -}}
+    {{- if ne $stats nil -}}
+      <meta name="projektemacher.org:stats" content="{{ $stats | jsonify | safeHTML }}">
+    {{- end -}}
 
     {{ if .Permalink }}
        <base href="{{ .Permalink }}">
