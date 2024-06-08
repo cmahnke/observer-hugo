@@ -18,3 +18,6 @@ other = "<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/
 
 [projektemacher]
 other = "is a <a href=\"https://projektemacher.org/en/\">Projektemacher</a> blog<img src=\"/images/cm.svg\" style=\"height: 16px; margin-left: .5rem; vertical-align: middle;\">"
+
+[privacyPolicy]
+other = "Privacy policy"

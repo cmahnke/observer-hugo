@@ -72,6 +72,7 @@ a.mobile-player:hover {
     color: $color-body-text;
 }
 
+.privacy p,
 .colophon p {
     color: $color-sec-text;
 }
@@ -579,7 +580,8 @@ a.back-next {
     margin-left: 0;
 }
 
-#footer .colophon p {
+#footer .colophon p,
+#footer .privacy p {
     font-size: 14px;
     font-style: italic;
 }
@@ -1131,4 +1133,9 @@ body.about {
 
 .meta .post {
     border-bottom: unset
+}
+
+p.small {
+    font-size: smaller !important;
+    text-align: end !important;
 }
