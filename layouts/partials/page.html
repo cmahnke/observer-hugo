@@ -42,7 +42,10 @@
       <div class="metadata">
         <div class="date">
           <a href="{{ .RelPermalink }}">
-            {{- partial "date.html" (dict "date" .Date "language" $.Page.Language "months" $.Site.Data.months) -}}
+            {{- .Date | time.Format ":date_full" -}}
+            {{/*
+              {{- partial "date.html" (dict "date" .Date "language" $.Page.Language "months" $.Site.Data.months) -}}
+            */}}
           </a>
           {{ if .Site.Params.linkTumblr }}
               {{ if .Params.tumblr_url }}
