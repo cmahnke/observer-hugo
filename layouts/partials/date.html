@@ -1,6 +1,2 @@
-{{/* See https://pfischbeck.de/en/posts/multilingual-dates-in-hugo/ */}}
-{{ if eq "de" .language.Lang }}
-    {{- .date.Day }}. {{ index .months (printf "%d" .date.Month) }} {{ .date.Year -}}
-{{ else }}
-    {{- .date.Format "January 2, 2006" -}}
-{{ end }}
+{{- errorf "[date.html] The date template is deprecated use https://gohugo.io/functions/time/format/" -}}
+{{- .Date | time.Format ":date_full" -}}
