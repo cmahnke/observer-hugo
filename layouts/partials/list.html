@@ -4,22 +4,22 @@
 {{- end -}}
 
 {{/* Sort sticky pages to top */}}
-{{ $stickyPages := where $pages "Params.sticky" "==" true }}
-{{ $nonStickyPages := where $pages "Params.sticky" "!=" true }}
-{{ $pages = union $stickyPages $nonStickyPages }}
+{{- $stickyPages := where $pages "Params.sticky" "==" true -}}
+{{- $nonStickyPages := where $pages "Params.sticky" "!=" true -}}
+{{- $pages = union $stickyPages $nonStickyPages -}}
 
-{{ $paginator := .Paginate (where $pages "Params.displayinlist" "!=" false) -}}
+{{- $paginator := .Paginate (where $pages "Params.displayinlist" "!=" false) -}}
 {{- range $paginator.Pages -}}
-    {{ partial "page.html" . }}
-{{ end }}
+    {{- partial "page.html" . -}}
+{{- end -}}
 
-{{ if or ($paginator.HasPrev) ($paginator.HasNext) -}}
+{{- if or ($paginator.HasPrev) ($paginator.HasNext) -}}
 <h2 class="pagination">
-  {{ if $paginator.HasPrev }}
+  {{ if $paginator.HasPrev -}}
     <a class="back-next" href="{{ $paginator.Prev.URL }}">{{ i18n "previous_page" }}</a>
-  {{ end }}
-  {{ if $paginator.HasNext }}
+  {{- end -}}
+  {{- if $paginator.HasNext -}}
     <a class="back-next" href="{{ $paginator.Next.URL }}">{{ i18n "next_page" }}</a>
-  {{ end }}
+  {{- end }}
 </h2>
-{{- end }}
+{{- end -}}
