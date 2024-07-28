@@ -55,7 +55,11 @@
         <div class="tags">
             {{- if isset .Params "tags" -}}
                 {{- range $tag := .Params.tags -}}
-                    <a href="{{ "tags/" | relLangURL }}{{ $tag | urlize }}" title="{{ $tag }}">#{{ $tag }}</a>
+                  {{ $t := $tag }}
+                  {{- if ne (i18n $tag) "" -}}
+                    {{- $t = i18n $tag -}}
+                  {{- end -}}
+                  <a href="{{ "tags/" | relLangURL }}{{ $tag | urlize }}" title="{{ $tag }}">#{{ $t }}</a>
                 {{ end -}}
             {{- end -}}
         </div>
