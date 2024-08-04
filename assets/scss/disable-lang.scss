@@ -1,0 +1,8 @@
+.links .menu .navigation-item:last-child,
+.links .menu .navigation-item:first-child {
+  margin-left: unset !important;
+}
+
+.navigation-item.lang-switch {
+  display: none;
+}
