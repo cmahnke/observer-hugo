@@ -8,10 +8,10 @@
     {{ end }}
     <p class="license">
         {{ i18n "cc" | safeHTML }}
-    </p>  
+    </p>
     {{- $privacyUrl := "/privacy" -}}
-    {{- if and $.Sites.First.Params.footer.privacyUrl -}}
-      {{ $privacyUrl := $.Sites.First.Params.footer.privacyUrl }}
+    {{- if and $.Sites.Default.Params.footer.privacyUrl -}}
+      {{ $privacyUrl := $.Sites.Default.Params.footer.privacyUrl }}
     {{- end -}}
     {{- with .Site.GetPage "/privacy" -}}
       <p class="privacy">
