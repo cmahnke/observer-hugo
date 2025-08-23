@@ -10,7 +10,7 @@
 
 {{- $paginator := .Paginate (where $pages "Params.displayinlist" "!=" false) -}}
 {{- range $paginator.Pages -}}
-    {{- partial "page.html" . -}}
+    {{- partial "li.html" . -}}
 {{- end -}}
 
 {{- if or ($paginator.HasPrev) ($paginator.HasNext) -}}

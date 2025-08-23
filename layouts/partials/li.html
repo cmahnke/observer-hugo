@@ -1,0 +1,81 @@
+{{- $type := "text" -}}
+{{- if .Params.postType -}}
+    {{- $type = .Params.postType -}}
+{{- end -}}
+{{- if .Params.metaPage -}}
+    {{ $type = printf "%s %s" $type "meta" -}}
+{{- end -}}
+<div class="post {{ $type }}">
+  {{- if and .Params.postType (eq .Params.postType "video") -}}
+    <div class="wide">
+      <div class="videoWrapper">
+        <iframe width="700" height="394" id="youtube_iframe" src="{{ .Params.videoSrc }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+  {{- end -}}
+
+  {{- $showTitle := false -}}
+  {{- if not (isset .Site.Params "hidelisttitle") -}}
+    {{- if not .Site.Params.hideTitle -}}
+      {{- $showTitle = true -}}
+    {{- end -}}
+  {{- else -}}
+    {{- if not .Site.Params.hideListTitle -}}
+      {- $showTitle = true -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- $postClass := "narrow" -}}
+  {{- if .Site.Params.widePosts -}}
+    {{- $postClass = "wide" -}}
+  {{- end }}
+  <div class="{{ $postClass }}">
+    {{- $title := .Title -}}
+    {{- if and .Params.postType (eq .Params.postType "link") -}}
+      {{- $title = printf "<a href=\"%s\">%s</a>" .Params.linkTarget .Params.linkTitle | safeHTML -}}
+    {{ end }}
+    {{- if or (not .Params.postType) (ne .Params.postType "video") -}}
+      {{- if $showTitle  -}}
+        <div class="title">
+          <h1>{{ $title }}</h1>
+        </div>
+      {{- end -}}
+    {{- end -}}
+    {{- if and (and .Resources .Site.Params.enableImageViewer) (not .Params.disableImageViewer) -}}
+      {{- partial "image-viewer.html" . -}}
+    {{- end -}}
+    <div class="caption">
+      {{ .Content }}
+    </div>
+    {{- if (.Resources) -}}
+      {{- partial "pdf-viewer.html" . -}}
+    {{- end -}}
+    {{- if not .Params.metaPage -}}
+      <div class="metadata">
+        <div class="date">
+          <a href="{{ .RelPermalink }}">
+            {{- .Date | time.Format ":date_full" -}}
+          </a>
+          {{- if .Site.Params.linkTumblr -}}
+              {{- if .Params.tumblr_url -}}
+                <span class="tumblr-url">
+                  <a href="{{ .Params.tumblr_url }}">Original auf Tumblr</a>
+                </span>
+              {{- end -}}
+          {{- end -}}
+        </div>
+        <div class="tags">
+            {{- if isset .Params "tags" -}}
+                {{- range $tag := .Params.tags -}}
+                  {{ $t := $tag }}
+                  {{- if ne (i18n $tag) "" -}}
+                    {{- $t = i18n $tag -}}
+                  {{- end -}}
+                  <a href="{{ "tags/" | relLangURL }}{{ $tag | urlize }}" title="{{ $tag }}">#{{ $t }}</a>
+                {{ end -}}
+            {{- end -}}
+        </div>
+      </div>
+    {{- end -}}
+  </div>
+</div>
