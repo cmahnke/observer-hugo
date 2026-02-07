@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "jquery": "^3.7.1",
+    "jquery": "^4.0.0",
     "lightgallery": "^2.9.0",
-    "pdfjs-dist": "^5.4.530",
+    "pdfjs-dist": "^5.4.624",
     "pdfobject": "^2.3.1"
   }
 }
