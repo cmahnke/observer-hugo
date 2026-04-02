@@ -15,7 +15,7 @@
     {{- if ne .GitInfo nil -}}
         <meta name="projektemacher.org:git-commit" content="{{ .GitInfo.AbbreviatedHash }}">
     {{- end -}}
-    {{- $stats := $.Site.Data.stats -}}
+    {{- $stats := hugo.Data.stats -}}
     {{- if ne $stats nil -}}
       <meta name="projektemacher.org:stats" content="{{ $stats | jsonify | safeHTML }}">
     {{- end -}}
