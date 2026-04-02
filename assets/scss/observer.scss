@@ -1,4 +1,5 @@
-@import "functions/color";
+/* @import "functions/color"; */
+@use "functions/color" as *;
 
 $color-bg: #fff !default;
 $color-sec-text: #888888 !default;
