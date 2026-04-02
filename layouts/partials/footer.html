@@ -10,8 +10,8 @@
         {{ i18n "cc" | safeHTML }}
     </p>
     {{- $privacyUrl := "/privacy" -}}
-    {{- if and $.Sites.Default.Params.footer.privacyUrl -}}
-      {{ $privacyUrl := $.Sites.Default.Params.footer.privacyUrl }}
+    {{- if and hugo.Sites.Default.Params.footer.privacyUrl -}}
+      {{ $privacyUrl := hugo.Sites.Default.Params.footer.privacyUrl }}
     {{- end -}}
     {{- with .Site.GetPage "/privacy" -}}
       <p class="privacy">
