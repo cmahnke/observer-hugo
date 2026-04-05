@@ -31,7 +31,10 @@
 
     {{- $js := "" -}}
     {{- $defines := dict "process.env.NODE_ENV" `"production"` -}}
-    {{- $opts := dict "targetPath" "js/main.js" "defines" $defines "minify" true -}}
+    {{- $opts := dict "targetPath" "js/main.js" "defines" $defines
+          "minify" (cond hugo.IsDevelopment false true)
+          "sourceMap" (cond hugo.IsDevelopment "linked" "none")
+    -}}
     {{- if and .Site.Params.enableImageViewer .Site.Params.enablePDFViewer -}}
         {{- $viewers := slice (resources.Get "js/image-viewer.js") (resources.Get "js/pdf-viewer.js") | js.Build $opts -}}
         {{- $js = slice $viewers -}}
