@@ -1,3 +1,2 @@
 name = "Projektemacher Observer Hugo"
-# Some features require 0.141.0 to include https://gohugo.io/functions/go-template/try/
-min_version = "0.156.0"
+min_version = "0.158.0"
