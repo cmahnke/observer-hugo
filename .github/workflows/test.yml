@@ -35,7 +35,9 @@ jobs:
 
       - name: Setup Dart Sass
         run: |
-          curl -sL https://github.com/sass/dart-sass/releases/download/1.105.2/dart-sass-1.105.2-linux-x64.tar.gz | tar -xz -C /usr/local
+          mkdir -p "$HOME/.local/opt"
+          curl -sL https://github.com/sass/dart-sass/releases/download/1.105.2/dart-sass-1.105.2-linux-x64.tar.gz | tar -xz -C "$HOME/.local/opt"
+          echo "$HOME/.local/opt/dart-sass" >> "$GITHUB_PATH"
 
       - name: Build test site in memory
         run: |
