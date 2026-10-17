@@ -1,0 +1,25 @@
+<ul class="menu">
+  {{- with .Site.Menus.main -}}
+    {{- range sort . -}}
+      <li class="navigation-item">
+        <a class="navigation-link" href="{{ .URL | absLangURL }}">{{ .Name }}</a>
+      </li>
+    {{- end -}}
+  {{- end -}}
+
+  {{ with .Translations }}
+    {{ range . }}
+      {{- if ne $.Site.Language .Language -}}
+        <li class="navigation-item lang-switch">
+          <a class="navigation-link lang" lang="{{ .Lang }}" hreflang="{{ .Lang }}" href="{{ .RelPermalink }}">{{ i18n .Lang }}</a>
+        </li>
+      {{- end -}}
+    {{- end -}}
+  {{- else -}}
+    {{- range .Site.Home.Translations -}}
+      <li class="navigation-item lang-switch">
+        <a class="navigation-link lang" lang="{{ .Lang }}" hreflang="{{ .Lang }}" href="{{ .RelPermalink }}">{{ i18n .Lang }}</a>
+      </li>
+    {{- end -}}
+  {{- end -}}
+</ul>

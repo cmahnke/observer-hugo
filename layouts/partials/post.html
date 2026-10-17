@@ -1,0 +1,83 @@
+{{/* Shared post rendering, used by single pages and list items.
+     Expects a dict with:
+       "page"      - the page context
+       "titleTag"  - heading level for the post title ("h1" or "h2", default "h1")
+       "showTitle" - whether the title should be rendered (default true)
+*/}}
+{{- $context := .page -}}
+{{- $titleTag := .titleTag | default "h1" -}}
+{{- $showTitle := .showTitle | default true -}}
+
+{{- $type := "text" -}}
+{{- if $context.Params.postType -}}
+    {{- $type = $context.Params.postType -}}
+{{- end -}}
+{{- if $context.Params.metaPage -}}
+    {{- $type = printf "%s %s" $type "meta" -}}
+{{- end -}}
+<div class="post {{ $type }}">
+{{- if and $context.Params.postType (eq $context.Params.postType "video") -}}
+  <div class="wide">
+    <div class="videoWrapper">
+      <iframe width="700" height="394" class="youtube_iframe" src="{{ $context.Params.videoSrc }}" title="{{ $context.Title }}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+  </div>
+{{- end -}}
+  {{- $postClass := "narrow" -}}
+  {{- if $context.Site.Params.widePosts -}}
+    {{- $postClass = "wide" -}}
+  {{- end }}
+  <div class="{{ $postClass }}">
+    {{- $title := $context.Title -}}
+    {{- if and $context.Params.postType (eq $context.Params.postType "link") -}}
+      {{- $title = printf "<a href=\"%s\">%s</a>" $context.Params.linkTarget $context.Params.linkTitle | safeHTML -}}
+    {{ end }}
+    {{- if or (not $context.Params.postType) (ne $context.Params.postType "video") -}}
+      {{- if $showTitle -}}
+        <div class="title">
+          {{- if eq $titleTag "h2" -}}
+            <h2>{{ $title }}</h2>
+          {{- else -}}
+            <h1>{{ $title }}</h1>
+          {{- end -}}
+        </div>
+      {{- end -}}
+    {{- end -}}
+    {{- if and (and $context.Resources $context.Site.Params.enableImageViewer) (not $context.Params.disableImageViewer) -}}
+      {{- partial "image-viewer.html" $context -}}
+    {{- end -}}
+    <div class="caption">
+      {{ $context.Content }}
+    </div>
+    {{- if ($context.Resources) -}}
+      {{- partial "pdf-viewer.html" $context -}}
+    {{- end -}}
+    {{- if not $context.Params.metaPage -}}
+      <div class="metadata">
+        <div class="date">
+          <a href="{{ $context.RelPermalink }}">
+            {{- $context.Date | time.Format ":date_full" -}}
+          </a>
+          {{- if $context.Site.Params.linkTumblr -}}
+              {{- if $context.Params.tumblr_url -}}
+                <span class="tumblr-url">
+                  <a href="{{ $context.Params.tumblr_url }}">{{ i18n "tumblrOriginal" }}</a>
+                </span>
+              {{- end -}}
+          {{- end -}}
+        </div>
+        <div class="tags">
+            {{- if isset $context.Params "tags" -}}
+                {{- range $tag := $context.Params.tags -}}
+                  {{ $t := $tag }}
+                  {{- if ne (i18n $tag) "" -}}
+                    {{- $t = i18n $tag -}}
+                  {{- end -}}
+                  <a href="{{ "tags/" | relLangURL }}{{ $tag | urlize }}" title="{{ $tag }}">#{{ $t }}</a>
+                {{ end -}}
+            {{- end -}}
+        </div>
+      </div>
+    {{- end -}}
+  </div>
+</div>

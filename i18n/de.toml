@@ -5,9 +5,20 @@ other = "Vor"
 [previous_page]
 other = "Zurück"
 
+[pagination]
+other = "Seitennavigation"
+
+# Menu
+[menu]
+other = "Menü"
+
+# Navigation
+[skipToContent]
+other = "Zum Inhalt springen"
+
 # Languages
 [en]
-other = "Englisch"
+other = "English"
 
 [de]
 other = "Deutsch"
@@ -17,7 +28,30 @@ other = "Deutsch"
 other = "<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\"><img alt=\"Creative Commons Lizenzvertrag\" style=\"border-width:0\" src=\"/images/cc88x31.png\" /></a><br />Dieses Werk ist lizenziert unter einer <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\">Creative Commons Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz</a>."
 
 [projektemacher]
-other = "ist ein <a href=\"https://projektemacher.org/\">Projektemacher</a> Blog<img src=\"/images/cm.svg\" style=\"height: 16px; margin-left: .5rem; vertical-align: middle;\">"
+other = "ist ein <a href=\"https://projektemacher.org/\">Projektemacher</a> Blog<img src=\"/images/cm.svg\" style=\"height: 16px; margin-left: .5rem; vertical-align: middle;\" alt=\"\">"
 
 [privacyPolicy]
 other = "Datenschutzerklärung"
+
+[tumblrOriginal]
+other = "Original auf Tumblr"
+
+# Viewers
+[pdfDownload]
+other = "PDF Download"
+
+[viewImage]
+other = "Bild anzeigen"
+
+[viewMoreImages]
+other = "Weitere Bilder anzeigen"
+
+# 404
+[notFoundTitle]
+other = "Nicht gefunden"
+
+[notFoundText]
+other = "Die angeforderte URL konnte auf dem Server nicht gefunden werden."
+
+[backHome]
+other = "Zurück zur Startseite"

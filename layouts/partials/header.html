@@ -1,11 +1,11 @@
-<div id="header">
-  <div class="links">
+<header id="header">
+  <nav class="links" aria-label="{{ i18n "menu" }}">
     {{ partial "menu.html" .}}
-  </div>
+  </nav>
     <div class="blog-title">
       {{ if .Site.Params.logo }}
         <a href="/"><img src="{{ .Site.Params.logo }}" alt="{{ .Site.Title }}"/></a>
       {{ end }}
       <h1><a href="/">{{ .Site.Title }}</a></h1>
     </div>
-  </div>
+</header>

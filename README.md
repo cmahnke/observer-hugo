@@ -47,11 +47,16 @@ theme = "observer-hugo"
 * `logo` - String - Link to the logo in the header
 * `linkTumblr` - Boolean - Include a link to Tumbler if the parameter `tumblr_url` is set in the front matter
 * `hideTitle` - Boolean - Hide titles in posts and list view.
+* `hideListTitle` - Boolean - Hide titles in list view only.
 * `widePosts` - Boolean - Display posts wide
 * `enableImageViewer` - Boolean - Include Lightbox for image resources (see configuration section below)
 * `enablePDFViewer` - Boolean - Include PDFObject and PDF.js for inline PDF (see configuration section below)
-* `iconSvg` - URL part (string) - Path to a SVG icon
+* `svgIcon` - URL part (string) - Path to a SVG icon
+* `menuTitleShort` - String - Short title used in the mobile menu
+* `dartSass` - Boolean - Use the Dart Sass transpiler instead of libsass (see [UPGRADE.md](UPGRADE.md#sass-transpiler))
 * `stylesheets` - array of URLs (string) - URL(s) to external stylesheets - use this to integrate Google Fonts
+
+All parameters belong in the `[params]` section of your `hugo.toml` (formerly `config.toml`). See [UPGRADE.md](UPGRADE.md) for upgrade notes between theme versions.
 
 ## Page (front matter)
 
@@ -204,6 +209,12 @@ Afterwards create a file `assets/scss/base.scss` and include `observer.scss` fro
 @import "observer";
 ```
 
+When using Dart Sass (`dartSass = true`, see [UPGRADE.md](UPGRADE.md#sass-transpiler)) the import syntax is:
+
+```
+@use "observer";
+```
+
 Afterwards you can overwrite the configuration variables
 
 ```
@@ -245,20 +256,16 @@ The theme needs some JavaScript dependencies, currently these aren't bundled. To
 Just add the required packages:
 
 ```
-yarn add jquery
-```
-
-If you also want the viewer functionality run:
-
-```
-yarn add jpdfjs-dist pdfobject
+yarn add pdfjs-dist pdfobject
 ```
 
 To get the image viewer you should addtionally run
 
 ```
-yarn add lightgallery lg-fullscreen
+yarn add lightgallery
 ```
+
+The fullscreen and thumbnail plugins used by the image viewer are bundled with `lightgallery` (imported from `lightgallery/plugins/`).
 
 # Acknowledgements
 

@@ -28,7 +28,7 @@
         {{- if or (or (.Get "title") (.Get "caption")) (.Get "attr") -}}
             <figcaption>
                 {{ with (.Get "title") }}
-                    <h4>{{ . }}</h4>
+                    <span class="figure-title">{{ . }}</span>
                 {{ end }}
                 {{ if (or (.Get "caption") (.Get "attr")) }}<p>
                     {{ .Get "caption" | markdownify }}

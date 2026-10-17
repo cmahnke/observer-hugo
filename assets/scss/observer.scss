@@ -2,7 +2,7 @@
 @use "functions/color" as *;
 
 $color-bg: #fff !default;
-$color-sec-text: #888888 !default;
+$color-sec-text: #595959 !default;
 $color-body-text: #333333 !default;
 $color-link-text: #333333 !default;
 $color-link-hover: #333333 !default;
@@ -21,8 +21,6 @@ $lg-image-path: /images/lightgallery !default;
 // Nav
 $nav-mobile-bg-color: rgba(68,68,68,.4) !default;
 $nav-mobile-font: futura, helvetica, arial, sans-serif !default;
-// Icons
-$bars: "data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='#{encodecolor($color-header-text)}' d='M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z'/%3E%3C/svg%3E";
 
 
 body {
@@ -37,7 +35,26 @@ body {
 a {
     color: $color-link-text;
     text-decoration: none;
-    border-bottom: 1px solid rgba(136, 136, 136, 0.3);
+    border-bottom: 1px solid rgba(136, 136, 136, 0.55);
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid $color-body-text;
+    outline-offset: 2px;
+}
+
+.skip-link {
+    position: absolute;
+    left: -10000px;
+    top: 0;
+    background: $color-bg;
+    padding: 0.5em 1em;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    left: 0;
 }
 
 #header h1 a {
@@ -51,7 +68,6 @@ a:hover {
 
 a:active {
     position: relative;
-    outline: none;
     top: 1px;
     color: $color-link-active;
 }
@@ -85,7 +101,6 @@ body {
 }
 
 #footer h2,
-.a h1,
 .album-info h2,
 .chat-title h1,
 .link-title h1,
@@ -98,7 +113,7 @@ body {
 .blog-title h1 {
     font-family: $font-header, futura, helvetica, arial, sans-serif;
     font-weight: bold;
-    font-size: 96px;
+    font-size: 6rem;
     line-height: 1em;
 }
 
@@ -107,22 +122,22 @@ body {
     font-weight: normal;
 }
 
-::selection {
-    background: #fff882;
-    /* Safari */
-    color: #444444;
-}
-
 ::-moz-selection {
     background: #fff882;
     /* Firefox */
     color: #444444;
 }
 
+::selection {
+    background: #fff882;
+    /* Safari */
+    color: #444444;
+}
+
 body {
     margin: 0;
     padding: 0;
-    font-size: 18px;
+    font-size: 1.125rem;
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
@@ -140,7 +155,7 @@ h3 {
     margin: 0;
     padding: 0;
     font-weight: 400;
-    font-size: 30px;
+    font-size: 1.875rem;
 }
 
 .ir {
@@ -194,7 +209,7 @@ h3 {
 }
 
 .blog-description {
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 20px;
     margin-top: 20px;
 }
@@ -251,7 +266,7 @@ h3 {
 .title h1 {
     text-align: center;
     margin: auto auto 25px;
-    font-size: 42px;
+    font-size: 2.625rem;
     line-height: 50px;
 }
 
@@ -262,12 +277,12 @@ h3 {
 
 span.link-arrow {
     position: relative;
-    font-size: 20px;
+    font-size: 1.25rem;
     bottom: 3px;
 }
 
 .quote-short {
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: 36px;
     margin-bottom: 25px;
 }
@@ -303,6 +318,7 @@ span.link-arrow {
     left: 0;
     width: 100%;
     height: 100%;
+    border: 0;
 }
 /* Post body styles
 ********************************/
@@ -318,7 +334,7 @@ span.link-arrow {
 .caption h2 {
     font-weight: bold;
     margin-bottom: 15px;
-    font-size: 24px;
+    font-size: 1.5rem;
 }
 
 .caption blockquote {
@@ -338,7 +354,7 @@ span.link-arrow {
     background-color: rgba(136, 136, 136, 0.2);
     border-radius: 2px;
     padding: 10px 15px;
-    font-size: 15px;
+    font-size: 0.9375rem;
     line-height: 24px;
     margin: 15px 0 25px;
 }
@@ -361,14 +377,14 @@ ol {
 
 .quote-short {
     line-height: 40px;
-    font-size: 36px;
+    font-size: 2.25rem;
     margin-bottom: 20px;
 }
 
 .quote-long,
 .quote-medium {
     line-height: 32px;
-    font-size: 24px;
+    font-size: 1.5rem;
     margin-bottom: 20px;
 }
 
@@ -487,7 +503,7 @@ p.question {
 
 p.album,
 p.question {
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: 32px;
 }
 
@@ -497,7 +513,7 @@ h1.qa-letter {
     width: 45px;
     position: relative;
     bottom: 3px;
-    font-size: 30px;
+    font-size: 1.875rem;
 }
 
 .q {
@@ -524,7 +540,7 @@ p.question {
 .metadata {
     border: 0 solid gray;
     overflow: auto;
-    font-size: 12px;
+    font-size: 0.75rem;
     text-transform: uppercase;
     margin-top: 20px;
 }
@@ -563,7 +579,7 @@ a.back-next {
 }
 
 #footer h2 {
-    font-size: 24px;
+    font-size: 1.5rem;
     text-align: center;
     margin-bottom: 40px;
 }
@@ -578,7 +594,7 @@ a.back-next {
 #footer-links li {
     display: inline;
     margin-left: 5px;
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 #footer-links li:first-child {
@@ -587,12 +603,12 @@ a.back-next {
 
 #footer .colophon p,
 #footer .privacy p {
-    font-size: 14px;
+    font-size: 0.875rem;
     font-style: italic;
 }
 
 #footer p.promo {
-    font-size: 12px;
+    font-size: 0.75rem;
     text-transform: uppercase;
     font-style: normal;
 }
@@ -614,7 +630,7 @@ a.back-next {
 
 .comments h3,
 .permalink-notes h3 {
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: 600;
     margin-bottom: 20px;
 }
@@ -628,7 +644,7 @@ a.back-next {
     margin-bottom: 10px;
     padding-top: 10px;
     border-top: 1px solid rgba(136, 136, 136, 0.3);
-    font-size: 13px;
+    font-size: 0.8125rem;
 }
 
 .permalink-notes blockquote {
@@ -663,12 +679,12 @@ a.back-next {
     }
 
     .blog-title h1 {
-        font-size: 40px;
+        font-size: 2.5rem;
         margin-bottom: 10px;
     }
 
     .blog-description {
-        font-size: 16px;
+        font-size: 1rem;
         line-height: 20px;
     }
 
@@ -691,12 +707,12 @@ a.back-next {
     .links li {
         display: inline;
         margin-left: 16px;
-        font-size: 17px;
+        font-size: 1.0625rem;
         text-transform: none;
     }
 
     .metadata {
-        font-size: 16px;
+        font-size: 1rem;
     }
 
     .player {
@@ -715,7 +731,7 @@ a.back-next {
     .link-title h1,
     .title h1 {
         text-align: center;
-        font-size: 36px;
+        font-size: 2.25rem;
         line-height: 42px;
     }
 }
@@ -764,7 +780,6 @@ a.back-next {
 .tumblr-url {
     float: right;
     text-align: right;
-    visibility: hidden;
 }
 
 .pagination {
@@ -774,6 +789,7 @@ a.back-next {
     a {
         font-family: $font-header, futura, helvetica, arial, sans-serif;
         font-weight: bold;
+        font-size: 1.5rem;
         text-decoration: none;
         border-bottom: none;
 
@@ -781,16 +797,16 @@ a.back-next {
             margin: 0 10px;
         }
     }
-
-    h2 {
-        font-size: 24px;
-        text-align: center;
-        margin-bottom: 40px;
-    }
 }
 
 figure {
     margin: 0;
+}
+
+.figure-title {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5em;
 }
 
 .license a img {
@@ -838,10 +854,6 @@ body.about {
   &:last-child {
     margin-left: auto;
   }
-
-  &.lang-switch {
-
-  }
 }
 
 @media screen and (max-width: 740px) {
@@ -854,7 +866,7 @@ body.about {
     }
 
     .title h1 {
-        font-size: 24px;
+        font-size: 1.5rem;
     }
 
     .blog-title h1 {
@@ -866,15 +878,6 @@ body.about {
         box-sizing: border-box;
         padding: 0;
         max-width: unset !important;
-    }
-
-    .fa-bars:before {
-        content: url($bars);
-        height: 24px;
-        width: 24px;
-        display: inline-block;
-        width: 1em;
-        vertical-align: top;
     }
 
     #header {
@@ -941,17 +944,20 @@ body.about {
             }
 
             .menu {
+                width: 100%;
+                padding: 0;
+                background-color: #fafafa;
+                border-bottom: solid 2px #e0e0e0;
+            }
+
+            .js .menu {
                 position: absolute;
                 top: 5rem;
                 right: 0;
                 z-index: 5;
                 visibility: hidden;
                 opacity: 0;
-                padding: 0;
                 max-height: 0;
-                width: 100%;
-                background-color: #fafafa;
-                border-bottom: solid 2px #e0e0e0;
                 transition: opacity 0.25s,max-height 0.15s linear;
             }
 
@@ -963,14 +969,15 @@ body.about {
                 color: #212121;
                 cursor: pointer;
                 float: right;
+                background: none;
+                border: 0;
+                line-height: 1;
             }
 
-            #menu-toggle {
-                &:checked + label + ul {
-                    visibility: visible;
-                    opacity: 1;
-                    max-height: 100rem;
-                }
+            .js .menu-button[aria-expanded="true"] + .menu {
+                visibility: visible;
+                opacity: 1;
+                max-height: 100rem;
             }
         }
     }
@@ -1020,20 +1027,7 @@ body.about {
         display: none;
     }
 
-    #menu-toggle {
-        display: none;
-    }
-
     .menu-button {
-        display: none;
-    }
-}
-
-#footer {
-    .fill-spacer,
-    #menu-toggle,
-    .menu-button,
-    .menu-title {
         display: none;
     }
 }

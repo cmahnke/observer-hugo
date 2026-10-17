@@ -1,23 +1,20 @@
 {{- $maxWidth := 1280 -}}
 {{- $thumbsWidth := 190 -}}
-{{- $caption := "View more images" -}}
+{{- $caption := i18n "viewMoreImages" | default "View more images" -}}
 {{ $images := slice }}
-{{- $postTitle := replace (lower .Title) " " "_" -}}
-{{- $id := printf "%s-%s" $postTitle (delimit (shuffle (seq 1 9)) "") -}}
-{{- $id = $id | replaceRE "[.!:?\"'()\\[\\]\\\\]" "" -}}
 
 {{/* create variants */}}
 {{- range .Params.resources -}}
     {{- if and .src (not .name) -}}
-        {{- $src := .RelPermalink -}}
+        {{- $src := .src -}}
         {{- $image := $.Resources.GetMatch .src -}}
         {{- if $image -}}
             {{- $imageDisplay := $image -}}
             {{- if gt $imageDisplay.Width $maxWidth -}}
                 {{- $image = $imageDisplay.Resize (printf "%dx" $maxWidth) -}}
-            {{ end -}}
+            {{- end -}}
             {{- if eq $image.MediaType.SubType "png" -}}
-              {{- $image = $imageDisplay.Resize (printf "%dx %s" $imageDisplay.Width "jpg") }}
+              {{- $image = $imageDisplay.Resize (printf "%dx jpg" (int (math.Min $imageDisplay.Width $maxWidth))) -}}
             {{- end -}}
             {{- $thumb := $imageDisplay.Resize (printf "%dx jpg" $thumbsWidth) -}}
             {{- $images = $images | append (dict "orig" $image "front" $imageDisplay "thumb" $thumb) -}}
@@ -30,25 +27,22 @@
 <div class="image-viewer">
     {{- if (index $images 0) -}}
         {{- $firstImage := index (index $images 0) "front" -}}
-        <img class="front" src="{{ $firstImage.RelPermalink }}">
+        <img class="front" src="{{ $firstImage.RelPermalink }}" alt="{{ $.Title }}">
     {{- else }}
         <div class="image-viewer-error">First image missing</div>
     {{- end -}}
     {{- if gt (len $images) 0 -}}
         <div class="thumbs">
             <div class="caption">{{ $caption }}</div>
-            <div id="{{ $id }}">
+            <div data-image-viewer>
                 {{- $i := 0 -}}
                 {{- range $images -}}
-                  <a href="{{ (index . "orig").RelPermalink }}">
-                      <img class="viewer-thumb" src="{{ (index . "thumb").RelPermalink }}" />
-                  </a>
                   {{- $i = add $i 1 -}}
-                {{- end -}}
+                  <a href="{{ (index . "orig").RelPermalink }}" aria-label="{{ i18n "viewImage" }} {{ $i }}">
+                      <img class="viewer-thumb" src="{{ (index . "thumb").RelPermalink }}" alt="" loading="lazy" />
+                  </a>
+                  {{- end -}}
             </div>
         </div>
     {{- end -}}
 </div>
-<script type="text/javascript">
-    addImageViewer('{{ $id | safeJS }}');
-</script>

@@ -7,30 +7,7 @@
   {{- end -}}
 </a></div>
 <div class="fill-spacer"></div>
-<input type="checkbox" id="menu-toggle">
-<label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
-<ul class="menu">
-  {{- with .Site.Menus.main -}}
-    {{- range sort . -}}
-      <li class="navigation-item">
-        <a class="navigation-link" href="{{ .URL | absLangURL }}">{{ .Name }}</a>
-      </li>
-    {{- end -}}
-  {{- end -}}
-
-  {{ with .Translations }}
-    {{ range . }}
-      {{- if ne $.Site.Language .Language -}}
-        <li class="navigation-item lang-switch">
-          <a class="navigation-link lang" lang="{{ .Lang }}" href="{{ .RelPermalink }}">{{ i18n .Language }}</a>
-        </li>
-      {{- end -}}
-    {{- end -}}
-  {{- else -}}
-    {{- range .Site.Home.Translations -}}
-      <li class="navigation-item lang-switch">
-        <a class="navigation-link lang" lang="{{ .Lang }}" href="{{ .RelPermalink }}">{{ i18n .Language }}</a>
-      </li>
-    {{- end -}}
-  {{- end -}}
-</ul>
+<button type="button" class="menu-button float-right" aria-expanded="false" aria-controls="header-menu" aria-label="{{ i18n "menu" }}">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg>
+</button>
+{{- partial "menu-list.html" . }}

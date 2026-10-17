@@ -23,7 +23,7 @@
              {{- $image = $image.Resize (printf "%sx %s" $width "jpg") -}}
             {{- end -}}
             {{- if $link -}}<a href="{{ $link }}">{{- end -}}
-            <img src="{{ $image.RelPermalink }}">
+            <img src="{{ $image.RelPermalink }}" alt="{{ $caption }}">
             {{- if $link -}}</a>{{- end -}}
             <figcaption>
                 {{ $caption }}

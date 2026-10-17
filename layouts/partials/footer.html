@@ -1,6 +1,6 @@
-<div id="footer">
+<footer id="footer">
   <div id="footer-links">
-      {{ partial "menu.html" .}}
+      {{ partial "menu-list.html" .}}
   </div>
   <div class="colophon">
     {{ if .Site.Params.copyrightYears }}
@@ -10,15 +10,18 @@
         {{ i18n "cc" | safeHTML }}
     </p>
     {{- $privacyUrl := "/privacy" -}}
-    {{- if and hugo.Sites.Default.Params.footer.privacyUrl -}}
-      {{ $privacyUrl := hugo.Sites.Default.Params.footer.privacyUrl }}
+    {{- with hugo.Sites.Default.Params.footer -}}
+      {{- with .privacyUrl -}}
+        {{- $privacyUrl = . -}}
+      {{- end -}}
     {{- end -}}
     {{- with .Site.GetPage "/privacy" -}}
       <p class="privacy">
-        <a href="{{ $privacyUrl | safeHTML }}" title="{{ i18n "privacyPolicy" | safeHTML }}">{{ i18n "privacyPolicy" | safeHTML }}</a>
+        <a href="{{ $privacyUrl }}">{{ i18n "privacyPolicy" }}</a>
       </p>
     {{- end -}}
     <p class="projektemacher">
         {{ .Site.Title }} {{ i18n "projektemacher" | safeHTML }}
     </p>
   </div>
+</footer>
