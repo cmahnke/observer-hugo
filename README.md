@@ -53,7 +53,7 @@ theme = "observer-hugo"
 * `enablePDFViewer` - Boolean - Include PDFObject and PDF.js for inline PDF (see configuration section below)
 * `svgIcon` - URL part (string) - Path to a SVG icon
 * `menuTitleShort` - String - Short title used in the mobile menu
-* `dartSass` - Boolean - Use the Dart Sass transpiler instead of libsass (see [UPGRADE.md](UPGRADE.md#sass-transpiler))
+* `dartSass` - Boolean - Fall back to the libsass transpiler (default: Dart Sass is used, a `sass`/`dart-sass-embedded` binary is required for building, see [UPGRADE.md](UPGRADE.md#sass-transpiler))
 * `stylesheets` - array of URLs (string) - URL(s) to external stylesheets - use this to integrate Google Fonts
 
 All parameters belong in the `[params]` section of your `hugo.toml` (formerly `config.toml`). See [UPGRADE.md](UPGRADE.md) for upgrade notes between theme versions.
@@ -206,14 +206,10 @@ The theme uses SCSS to generate CSS. You should add your own SCSS file to `asset
 Afterwards create a file `assets/scss/base.scss` and include `observer.scss` from the theme:
 
 ```
-@import "observer";
-```
-
-When using Dart Sass (`dartSass = true`, see [UPGRADE.md](UPGRADE.md#sass-transpiler)) the import syntax is:
-
-```
 @use "observer";
 ```
+
+Building requires a Dart Sass binary (`sass` or `dart-sass-embedded`) in your `PATH`. If you fall back to libsass (`dartSass = false`), the import syntax is `@import "observer";` instead - see [UPGRADE.md](UPGRADE.md#sass-transpiler) for details and warnings.
 
 Afterwards you can overwrite the configuration variables
 
@@ -266,6 +262,8 @@ yarn add lightgallery
 ```
 
 The fullscreen and thumbnail plugins used by the image viewer are bundled with `lightgallery` (imported from `lightgallery/plugins/`).
+
+The theme's JavaScript sources are written in TypeScript (`assets/ts/`) and are bundled to a single `js/main.js` by Hugo's `js.Build` during the site build - no separate build step is needed.
 
 # Acknowledgements
 

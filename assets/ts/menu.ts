@@ -1,10 +1,16 @@
-window.toggleMenu = function(button) {
+declare global {
+    interface Window {
+        toggleMenu: (button: HTMLButtonElement) => void;
+    }
+}
+
+window.toggleMenu = function (button: HTMLButtonElement): void {
     const expanded = button.getAttribute('aria-expanded') === 'true';
     button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
 }
 
-function initMenus() {
-    document.querySelectorAll('.menu-button[aria-controls]').forEach(function (button) {
+function initMenus(): void {
+    document.querySelectorAll<HTMLButtonElement>('.menu-button[aria-controls]').forEach(function (button) {
         button.addEventListener('click', function () {
             window.toggleMenu(button);
         });
@@ -16,3 +22,5 @@ if (document.readyState === 'loading') {
 } else {
     initMenus();
 }
+
+export {}

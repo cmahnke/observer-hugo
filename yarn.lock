@@ -74,6 +74,11 @@
     "@napi-rs/canvas-win32-arm64-msvc" "1.0.10"
     "@napi-rs/canvas-win32-x64-msvc" "1.0.10"
 
+"@types/pdfobject@^2.2.5":
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/@types/pdfobject/-/pdfobject-2.2.5.tgz#d6a8c66038f3b473ab86556dc7262ceac1576040"
+  integrity sha512-7gD5tqc/RUDq0PyoLemL0vEHxBYi+zY0WVaFAx/Y0jBsXFgot1vB9No1GhDZGwRGJMCIZbgAb74QG9MTyTNU/g==
+
 lightgallery@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/lightgallery/-/lightgallery-3.0.0.tgz#9c922020eea623a0080fabde7c78d5f8f6b92f05"
@@ -90,3 +95,8 @@ pdfobject@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/pdfobject/-/pdfobject-2.3.1.tgz#ab63000e3c9dd22fd0c07002f7f1bf86b54dd5d7"
   integrity sha512-vluuGiSDmMGpOvWFGiUY4trNB8aGKLDVxIXuuGHjX0kK3bMxCANUVtLivctE7uejLBScWCnbVarKatFVvdwXaQ==
+
+typescript@^5.9.3:
+  version "5.9.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.9.3.tgz#5b4f59e15310ab17a216f5d6cf53ee476ede670f"
+  integrity sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==

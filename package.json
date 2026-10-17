@@ -3,5 +3,9 @@
     "lightgallery": "^3.0.0",
     "pdfjs-dist": "^6.4.299",
     "pdfobject": "^2.3.1"
+  },
+  "devDependencies": {
+    "@types/pdfobject": "^2.2.5",
+    "typescript": "^5.9.3"
   }
 }

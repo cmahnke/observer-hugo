@@ -87,10 +87,10 @@ EOF
 fi
 
 build() {
-  (cd "$SITE" && hugo --renderToMemory --gc --quiet)
+  (cd "$SITE" && hugo --renderToMemory --gc)
 }
 
-echo "== Build 1: libsass, viewers disabled =="
+echo "== Build 1: libsass fallback, viewers disabled =="
 write_base_config false false
 echo '@import "observer";' > "$SITE/assets/scss/base.scss"
 build
@@ -104,14 +104,18 @@ else
   echo "== Build 2 skipped: no Dart Sass binary found =="
 fi
 
-if [ -f "$THEME_DIR/node_modules/lightgallery/package.json" ]; then
-  echo "== Build 3: libsass, viewers enabled =="
-  write_base_config false true
-  echo '@import "observer";' > "$SITE/assets/scss/base.scss"
-  ln -s "$THEME_DIR/node_modules" "$SITE/node_modules"
-  build
+if command -v sass > /dev/null 2>&1 || command -v dart-sass-embedded > /dev/null 2>&1; then
+  if [ -f "$THEME_DIR/node_modules/lightgallery/package.json" ]; then
+    echo "== Build 3: dartsass, viewers enabled =="
+    write_base_config true true
+    echo '@use "observer";' > "$SITE/assets/scss/base.scss"
+    ln -s "$THEME_DIR/node_modules" "$SITE/node_modules"
+    build
+  else
+    echo "== Build 3 skipped: node_modules not installed =="
+  fi
 else
-  echo "== Build 3 skipped: node_modules not installed =="
+  echo "== Build 3 skipped: no Dart Sass binary found =="
 fi
 
 echo "All builds passed."

@@ -63,13 +63,29 @@ The pagination `<h2 class="pagination">` is now a `<nav class="pagination" aria-
 
 ### Sass transpiler
 
-Hugo deprecates `libsass` (v0.153.0); it will be removed in a future release. The theme now selects the transpiler via the site parameter `dartSass` (default: `false` = `libsass`, unchanged behavior):
+Dart Sass is now the default transpiler. Hugo deprecates `libsass` (v0.153.0) and will remove it in a future release.
+
+This means building a site with this theme now requires a Dart Sass binary (`sass` or `dart-sass-embedded`) in your `PATH`. If you cannot provide one (yet), you can temporarily fall back to libsass:
 
 ```toml
 [params]
-dartSass = true
+dartSass = false
 ```
 
-When switching to Dart Sass, the theme's SCSS works unchanged. Note the import syntax in your own `base.scss` differs: use `@import "observer";` with libsass and `@use "observer";` with Dart Sass. **Caution:** with libsass, `@use` is silently passed through and no styles are generated.
+Note the import syntax in your own `assets/scss/base.scss` differs:
 
-If your site sets `dartSass = true`, make sure the `sass`/`dart-sass-embedded` binary is available in your build environment.
+* **Dart Sass (default):** `@use "observer";` — no warnings
+* **libsass fallback:** `@import "observer";` — Dart Sass warns about deprecated `@import` rules (removal in Dart Sass 3.0.0)
+
+**Caution:** with libsass, `@use` is silently passed through and no styles are generated — the build succeeds but the page is unstyled. If your site suddenly renders without CSS, check the import syntax against your transpiler setting.
+
+### JavaScript sources are TypeScript now
+
+The theme's JavaScript sources moved from `assets/js/*.js` to `assets/ts/*.ts` (`menu.ts`, `image-viewer.ts`, `pdf-viewer.ts`) and are now written in TypeScript. The theme still bundles everything into a single `js/main.js` via Hugo's `js.Build` (esbuild), so:
+
+* If your site uses the theme's bundled `js/main.js` (the default): **no changes needed**.
+* If you import the theme's JS sources in your own build pipeline: update the paths from `assets/js/*.js` to `assets/ts/*.ts`.
+* The public API on `window` (`addImageViewer`, `addPDFViewer`, `toggleMenu`) is unchanged - it is now typed.
+* If you type-check the theme sources yourself, the required type definitions ship with `lightgallery` and `@types/pdfobject` (see the theme's `tsconfig.json`).
+
+The theme type-checks its sources with `tsc --noEmit` in CI; esbuild itself transpiles without type-checking.

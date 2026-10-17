@@ -26,25 +26,25 @@
       <link rel="canonical" href="{{ .Permalink }}">
     {{- end -}}
 
-    {{- $js := slice (resources.Get "js/menu.js") -}}
+    {{- $js := slice (resources.Get "ts/menu.ts") -}}
     {{- $defines := dict "process.env.NODE_ENV" `"production"` -}}
     {{- $opts := dict "targetPath" "js/main.js" "defines" $defines
           "minify" (cond hugo.IsDevelopment false true)
           "sourceMap" (cond hugo.IsDevelopment "linked" "none")
     -}}
     {{- if and .Site.Params.enableImageViewer .Site.Params.enablePDFViewer -}}
-        {{- $js = $js | append (resources.Get "js/image-viewer.js") (resources.Get "js/pdf-viewer.js") -}}
+        {{- $js = $js | append (resources.Get "ts/image-viewer.ts") (resources.Get "ts/pdf-viewer.ts") -}}
     {{- else if .Site.Params.enableImageViewer -}}
-        {{- $js = $js | append (resources.Get "js/image-viewer.js") -}}
+        {{- $js = $js | append (resources.Get "ts/image-viewer.ts") -}}
     {{- else if .Site.Params.enablePDFViewer -}}
-        {{- $js = $js | append (resources.Get "js/pdf-viewer.js") -}}
+        {{- $js = $js | append (resources.Get "ts/pdf-viewer.ts") -}}
     {{- end }}
 
-    {{- $js = $js | resources.Concat "js/main.js" | js.Build $opts | minify | fingerprint -}}
+    {{- $js = $js | resources.Concat "ts/main.ts" | js.Build $opts | minify | fingerprint -}}
     <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
     <script>document.documentElement.classList.add('js');</script>
 
-    {{- $options := (dict "targetPath" "base.css" "outputStyle" "compressed" "transpiler" (cond .Site.Params.dartSass "dartsass" "libsass")) -}}
+    {{- $options := (dict "targetPath" "base.css" "outputStyle" "compressed" "transpiler" (cond (ne .Site.Params.dartSass false) "dartsass" "libsass")) -}}
     {{- $ourTemplate := resources.Get "scss/base.scss" -}}
     {{- $ourStyle := $ourTemplate | resources.ExecuteAsTemplate "scss/base.scss" . | toCSS $options -}}
 

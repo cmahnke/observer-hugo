@@ -23,11 +23,19 @@ jobs:
         run: |
           yarn install --ignore-scripts
 
+      - name: Type-check TypeScript
+        run: |
+          yarn tsc --noEmit
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: '0.165.0'
           extended: true
+
+      - name: Setup Dart Sass
+        run: |
+          curl -sL https://github.com/sass/dart-sass/releases/download/1.105.2/dart-sass-1.105.2-linux-x64.tar.gz | tar -xz -C /usr/local
 
       - name: Build test site in memory
         run: |
