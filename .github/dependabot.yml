@@ -17,3 +17,7 @@ updates:
       npm:
         patterns:
         - '*'
+    versioning-strategy: increase
+    ignore:
+      - dependency-name: "typescript"
+        versions: '>=7'
