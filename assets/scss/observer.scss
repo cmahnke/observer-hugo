@@ -950,17 +950,6 @@ body.about {
                 border-bottom: solid 2px #e0e0e0;
             }
 
-            .js .menu {
-                position: absolute;
-                top: 5rem;
-                right: 0;
-                z-index: 5;
-                visibility: hidden;
-                opacity: 0;
-                max-height: 0;
-                transition: opacity 0.25s,max-height 0.15s linear;
-            }
-
             .menu-button {
                 display: block;
                 font-size: 1.8rem;
@@ -973,13 +962,24 @@ body.about {
                 border: 0;
                 line-height: 1;
             }
-
-            .js .menu-button[aria-expanded="true"] + .menu {
-                visibility: visible;
-                opacity: 1;
-                max-height: 100rem;
-            }
         }
+    }
+
+    .js #header .links .menu {
+        position: absolute;
+        top: 5rem;
+        right: 0;
+        z-index: 5;
+        visibility: hidden;
+        opacity: 0;
+        max-height: 0;
+        transition: opacity 0.25s,max-height 0.15s linear;
+    }
+
+    .js #header .links .menu-button[aria-expanded="true"] + .menu {
+        visibility: visible;
+        opacity: 1;
+        max-height: 100rem;
     }
 
     .caption iframe {
