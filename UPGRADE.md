@@ -63,21 +63,21 @@ The pagination `<h2 class="pagination">` is now a `<nav class="pagination" aria-
 
 ### Sass transpiler
 
-Dart Sass is now the default transpiler. Hugo deprecates `libsass` (v0.153.0) and will remove it in a future release.
+Dart Sass is the only supported transpiler. Hugo deprecated `libsass` (v0.153.0) and will remove it in a future release; the theme's libsass fallback (`dartSass = false` in `[params]`) has been removed.
 
-This means building a site with this theme now requires a Dart Sass binary (`sass` or `dart-sass-embedded`) in your `PATH`. If you cannot provide one (yet), you can temporarily fall back to libsass:
+Building requires a Dart Sass binary (`sass` or `dart-sass-embedded`) in your `PATH`. The only supported import syntax in your own `assets/scss/base.scss` is:
 
-```toml
-[params]
-dartSass = false
+```scss
+@use "observer";
 ```
 
-Note the import syntax in your own `assets/scss/base.scss` differs:
+To override the theme's configuration variables, pass them to the module:
 
-* **Dart Sass (default):** `@use "observer";` — no warnings
-* **libsass fallback:** `@import "observer";` — Dart Sass warns about deprecated `@import` rules (removal in Dart Sass 3.0.0)
+```scss
+@use "observer" with ($color-bg: #fff);
+```
 
-**Caution:** with libsass, `@use` is silently passed through and no styles are generated — the build succeeds but the page is unstyled. If your site suddenly renders without CSS, check the import syntax against your transpiler setting.
+Note that overriding variables *after* the `@use` has no effect on the theme's rules — variable overrides from older `@import`-based setups that were placed below the import never affected the theme's output and can be dropped (they still apply to your own rules).
 
 ### JavaScript sources are TypeScript now
 

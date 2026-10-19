@@ -44,7 +44,7 @@
     <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
     <script>document.documentElement.classList.add('js');</script>
 
-    {{- $options := (dict "targetPath" "base.css" "outputStyle" "compressed" "transpiler" (cond (ne .Site.Params.dartSass false) "dartsass" "libsass")) -}}
+    {{- $options := (dict "targetPath" "base.css" "outputStyle" "compressed" "transpiler" "dartsass") -}}
     {{- $ourTemplate := resources.Get "scss/base.scss" -}}
     {{- $ourStyle := $ourTemplate | resources.ExecuteAsTemplate "scss/base.scss" . | toCSS $options -}}
 

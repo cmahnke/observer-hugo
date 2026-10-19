@@ -53,7 +53,6 @@ theme = "observer-hugo"
 * `enablePDFViewer` - Boolean - Include PDFObject and PDF.js for inline PDF (see configuration section below)
 * `svgIcon` - URL part (string) - Path to a SVG icon
 * `menuTitleShort` - String - Short title used in the mobile menu
-* `dartSass` - Boolean - Fall back to the libsass transpiler (default: Dart Sass is used, a `sass`/`dart-sass-embedded` binary is required for building, see [UPGRADE.md](UPGRADE.md#sass-transpiler))
 * `stylesheets` - array of URLs (string) - URL(s) to external stylesheets - use this to integrate Google Fonts
 
 All parameters belong in the `[params]` section of your `hugo.toml` (formerly `config.toml`). See [UPGRADE.md](UPGRADE.md) for upgrade notes between theme versions.
@@ -209,25 +208,27 @@ Afterwards create a file `assets/scss/base.scss` and include `observer.scss` fro
 @use "observer";
 ```
 
-Building requires a Dart Sass binary (`sass` or `dart-sass-embedded`) in your `PATH`. If you fall back to libsass (`dartSass = false`), the import syntax is `@import "observer";` instead - see [UPGRADE.md](UPGRADE.md#sass-transpiler) for details and warnings.
+Building requires a Dart Sass binary (`sass` or `dart-sass-embedded`) in your `PATH` - libsass is no longer supported.
 
-Afterwards you can overwrite the configuration variables
+Afterwards you can overwrite the configuration variables by passing them to the module:
 
 ```
-$color-bg: #fff;
-$color-sec-text: #888888;
-$color-body-text: #333333;
-$color-link-text: #333333;
-$color-link-hover: #333333;
-$color-link-active: #333333;
-$color-header-text: #444444;
-$font-header: futura;
-$font-title: futura;
-$font-body: futura;
-$font-sec: futura;
-// lightGallery settings
-$lg-font-path: /fonts/lightgallery !default;
-$lg-image-path: /images/lightgallery !default;
+@use "observer" with (
+    $color-bg: #fff,
+    $color-sec-text: #595959,
+    $color-body-text: #333333,
+    $color-link-text: #333333,
+    $color-link-hover: #333333,
+    $color-link-active: #333333,
+    $color-header-text: #444444,
+    $font-header: futura,
+    $font-title: futura,
+    $font-body: futura,
+    $font-sec: futura,
+    // lightGallery settings
+    $lg-font-path: /fonts/lightgallery,
+    $lg-image-path: /images/lightgallery
+);
 ```
 
 Now you can add your own classes or overwrite existing ones.

@@ -22,9 +22,8 @@ defaultContentLanguage = "en"
 ignoreLogs = ['warning-goldmark-raw-html']
 
 [params]
-dartSass = $1
-enableImageViewer = $2
-enablePDFViewer = $2
+enableImageViewer = $1
+enablePDFViewer = $1
 
 [pagination]
 pagerSize = 1
@@ -90,32 +89,25 @@ build() {
   (cd "$SITE" && hugo --renderToMemory --gc)
 }
 
-echo "== Build 1: libsass fallback, viewers disabled =="
-write_base_config false false
-echo '@import "observer";' > "$SITE/assets/scss/base.scss"
-build
-
-if command -v sass > /dev/null 2>&1 || command -v dart-sass-embedded > /dev/null 2>&1; then
-  echo "== Build 2: dartsass, viewers disabled =="
-  write_base_config true false
-  echo '@use "observer";' > "$SITE/assets/scss/base.scss"
-  build
-else
-  echo "== Build 2 skipped: no Dart Sass binary found =="
+# Dart Sass is required - the theme no longer supports the libsass fallback
+if ! command -v sass > /dev/null 2>&1 && ! command -v dart-sass-embedded > /dev/null 2>&1; then
+  echo "ERROR: no Dart Sass binary (sass or dart-sass-embedded) found in PATH" >&2
+  exit 1
 fi
 
-if command -v sass > /dev/null 2>&1 || command -v dart-sass-embedded > /dev/null 2>&1; then
-  if [ -f "$THEME_DIR/node_modules/lightgallery/package.json" ]; then
-    echo "== Build 3: dartsass, viewers enabled =="
-    write_base_config true true
-    echo '@use "observer";' > "$SITE/assets/scss/base.scss"
-    ln -s "$THEME_DIR/node_modules" "$SITE/node_modules"
-    build
-  else
-    echo "== Build 3 skipped: node_modules not installed =="
-  fi
+echo "== Build 1: viewers disabled =="
+write_base_config false
+echo '@use "observer";' > "$SITE/assets/scss/base.scss"
+build
+
+if [ -f "$THEME_DIR/node_modules/lightgallery/package.json" ]; then
+  echo "== Build 2: viewers enabled =="
+  write_base_config true
+  echo '@use "observer";' > "$SITE/assets/scss/base.scss"
+  ln -s "$THEME_DIR/node_modules" "$SITE/node_modules"
+  build
 else
-  echo "== Build 3 skipped: no Dart Sass binary found =="
+  echo "== Build 2 skipped: node_modules not installed =="
 fi
 
 echo "All builds passed."
