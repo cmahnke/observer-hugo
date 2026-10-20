@@ -35,6 +35,10 @@ The theme's custom RSS template is now named `layouts/list.rss.xml` and applies 
 
 * The shortcode file lookup for the metadata extraction now checks `layouts/_shortcodes/` instead of `layouts/shortcodes/`. This only affects shortcode files in the site itself, not in themes (as before, the lookup is relative to the site's working directory).
 
+### JavaScript: bundle is an ES module now
+
+The bundle built from the theme's TypeScript sources is now emitted as an ES module (`js.Build` with `format: "esm"`) instead of an IIFE. The `<script>` tag in `baseof.html` changed accordingly from `defer` to `type="module"` (module scripts are deferred by default). The public API on `window` (`addImageViewer`, `addPDFViewer`, `toggleMenu`) and the bundled file name are unchanged. If your site overrides `baseof.html`, apply the same two changes: add `"format" "esm"` to the `js.Build` options and switch the script tag to `type="module"`.
+
 ## Upgrading to v3 (accessibility release)
 
 This release modernizes the generated markup and fixes a number of accessibility issues. If you only use the theme's default templates, no action is needed beyond a visual check. If you **override templates or styles**, review the changes below.

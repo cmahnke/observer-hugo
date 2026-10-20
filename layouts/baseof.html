@@ -29,6 +29,7 @@
     {{- $js := slice (resources.Get "ts/menu.ts") -}}
     {{- $defines := dict "process.env.NODE_ENV" `"production"` -}}
     {{- $opts := dict "targetPath" "js/main.js" "defines" $defines
+          "format" "esm"
           "minify" (cond hugo.IsDevelopment false true)
           "sourceMap" (cond hugo.IsDevelopment "linked" "none")
     -}}
@@ -41,7 +42,7 @@
     {{- end }}
 
     {{- $js = $js | resources.Concat "ts/main.ts" | js.Build $opts | minify | fingerprint -}}
-    <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+    <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" type="module"></script>
     <script>document.documentElement.classList.add('js');</script>
 
     {{- $options := (dict "targetPath" "base.css" "outputStyle" "compressed" "transpiler" "dartsass") -}}
