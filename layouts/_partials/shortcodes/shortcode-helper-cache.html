@@ -31,18 +31,18 @@
 {{- $candidates := slice -}}
 {{- range $shortcode := $shortcodes -}}
   {{/* Find definition of each found shortcode, this way we can make sure to include the ondes defined by any theme */}}
-  {{- $shortcodeFile := printf "layouts/shortcodes/%s.html" $shortcode -}}
+  {{- $shortcodeFile := printf "layouts/_shortcodes/%s.html" $shortcode -}}
   {{- if fileExists $shortcodeFile -}}
     {{- $shortcodeContent := readFile $shortcodeFile -}}
-    {{/* Get the inline partial returning the required metadata for the shortcode */}}
-    {{- $matches := findRESubmatch `{{-?\s*define\s*"(.*-metadata.*)"\s*-?}}` $shortcodeContent -}}
-    {{- $template := (partial "shortcodes/shortcode-helper-extract-matches.html" (dict "matches" $matches) ) -}}
-    {{- if (len $template) -}}
-      {{- $template = index $template 0 -}}
+    {{/* Extract the metadata define from the shortcode file. Since the template system rework in Hugo v0.146.0 inline defines are no longer registered globally, so the JSON is parsed from the file content directly. */}}
+    {{- $matches := findRESubmatch `(?s){{-?\s*define\s*"(.*-metadata.*)"\s*-?}}(.*?)(?:{{-?\s*end\s*-?}})` $shortcodeContent -}}
+    {{- if (len $matches) -}}
+      {{- $template := index (index $matches 0) 1 -}}
+      {{- $metadata := index (index $matches 0) 2 -}}
       {{- if $debug -}}
-        {{- warnf "[partials/shortcodes/shortcode-helper-cache.html] Trying to load metadata partial for shortcode %s" $template -}}
+        {{- warnf "[partials/shortcodes/shortcode-helper-cache.html] Trying to load metadata for shortcode %s" $template -}}
       {{- end -}}
-      {{- $include := unmarshal (partialCached $template .) -}}
+      {{- $include := unmarshal $metadata -}}
       {{/* Since this template should only be called once, we should do some sanity checks here. */}}
       {{- if isset $include "js" -}}
         {{- if eq (printf "%T" (index $include "js")) "string" -}}

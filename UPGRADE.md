@@ -1,5 +1,40 @@
 # Upgrading
 
+## Upgrading to v4 (new Hugo template system)
+
+This release migrates the theme to the template system introduced in [Hugo v0.146.0](https://gohugo.io/templates/new-templatesystem-overview/): the `_default` directory is gone, `partials` and `shortcodes` are renamed to `_partials` and `_shortcodes`, and the home page template is now `home.html` instead of `index.html`.
+
+If you only use the theme's default templates, no action is needed. If you **override theme templates** or **define your own shortcodes**, move the files in your site's `layouts` directory accordingly:
+
+| Old location | New location |
+|---|---|
+| `layouts/_default/baseof.html` | `layouts/baseof.html` |
+| `layouts/_default/list.html` | `layouts/list.html` |
+| `layouts/_default/single.html` | `layouts/single.html` |
+| `layouts/_default/_markup/` | `layouts/_markup/` |
+| `layouts/index.html` | `layouts/home.html` |
+| `layouts/partials/` | `layouts/_partials/` |
+| `layouts/shortcodes/` | `layouts/_shortcodes/` |
+
+Note that Hugo still maps the old locations to the new ones for now, but this backward compatibility will be removed in a future Hugo release.
+
+### RSS feeds
+
+The theme's custom RSS template is now named `layouts/list.rss.xml` and applies to home, section, taxonomy and term feeds alike. Previously only the home feed used it, while all other feeds fell back to Hugo's embedded default template. The feeds contain the same items, but the generated XML differs slightly (for example the `generator` element and the absence of the `docs` element).
+
+### Shortcode helper
+
+* `partials/shortcodes/shortcode-helper.html` and `partials/shortcodes/shortcode-helper-cache.html` now live in `_partials/shortcodes/`. The partial names used in `partial` calls are unchanged.
+* The metadata `define` blocks inside shortcode files are no longer evaluated as partials - since Hugo v0.146.0 inline `define` blocks are not globally addressable anymore. The metadata JSON is now extracted from the shortcode file content directly, so the authoring format stays the same:
+
+  ```html
+  {{- define "myshortcode-metadata" -}}
+  {"js": ["js/myshortcode.js"], "css": ["css/myshortcode.css"]}
+  {{- end -}}
+  ```
+
+* The shortcode file lookup for the metadata extraction now checks `layouts/_shortcodes/` instead of `layouts/shortcodes/`. This only affects shortcode files in the site itself, not in themes (as before, the lookup is relative to the site's working directory).
+
 ## Upgrading to v3 (accessibility release)
 
 This release modernizes the generated markup and fixes a number of accessibility issues. If you only use the theme's default templates, no action is needed beyond a visual check. If you **override templates or styles**, review the changes below.
