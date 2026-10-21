@@ -3,7 +3,12 @@
 {{ if (.Get "file") }}
     {{ $quote = readFile (.Get "file") | markdownify }}
 {{ end }}
+{{ if len .Inner }}
+    {{ $quote = .Inner | markdownify }}
+{{ end }}
 {{ $link := .Get "link" }}
+{{ $fromlink := .Get "from-link" }}
+{{ $sourcelink := .Get "source-link" }}
 <div class="quote">
     {{ if $link }}<a href="{{ $link }}">{{ end }}
     <div class="quote-body">
@@ -11,6 +16,16 @@
     </div>
     {{ if $link }}</a>{{ end }}
     {{ if $from }}
-        <div class="quote-from">{{ $from }}</div>
+        <div class="quote-from">
+            {{ if $fromlink }}<a href="{{ $fromlink }}">{{ end }}
+            {{ $from }}
+            {{ if $fromlink }}</a>{{ end }}
+            {{ if and $fromlink $sourcelink }}, {{ end }}
+            {{ if $sourcelink }}
+                <a href="{{ $sourcelink }}">
+                    {{ or (i18n "source") "Source" }}
+                </a>
+            {{ end }}
+        </div>
     {{ end }}
 </div>
