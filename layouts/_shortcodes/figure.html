@@ -11,9 +11,18 @@
             {{- $baseurl_no_trailing_slash := site.BaseURL | replaceRE "/$" "" -}}
             <img src="{{ (printf "%s%s" $baseurl_no_trailing_slash $image) }}"
         {{- else -}}
-            {{- /* Below variable will always have a trailing slash, even with uglyURLs enabled. */ -}}
-            {{- $permalink_pretty := $.Page.Permalink | replaceRE "\\.html$" "/" -}}
-            <img src="{{ (printf "%s%s" $permalink_pretty $image) }}"
+            {{- /* If the image is a page bundle resource, serve a WebP derivative (AutoOrient respects the Exif orientation tag). */ -}}
+            {{- $resource := $.Page.Resources.Get $image -}}
+            {{- if and $resource (eq $resource.ResourceType "image") -}}
+                {{- $webp := $resource.Filter (slice images.AutoOrient (images.Process "webp q80")) -}}
+                <img src="{{ $webp.RelPermalink }}"
+                {{- if not (.Get "width") }} width="{{ $webp.Width }}"{{ end -}}
+                {{- if not (.Get "height") }} height="{{ $webp.Height }}"{{ end -}}
+            {{- else -}}
+                {{- /* Below variable will always have a trailing slash, even with uglyURLs enabled. */ -}}
+                {{- $permalink_pretty := $.Page.Permalink | replaceRE "\\.html$" "/" -}}
+                <img src="{{ (printf "%s%s" $permalink_pretty $image) }}"
+            {{- end -}}
         {{- end -}}
             {{- if (or (.Get "alt") (.Get "caption")) -}}
                 {{- with .Get "alt"}}
