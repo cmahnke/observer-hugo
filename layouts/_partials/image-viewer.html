@@ -1,7 +1,10 @@
-{{- $maxWidth := 1280 -}}
-{{- $thumbsWidth := 190 -}}
+{{- $maxWidth := .Params.imageViewerMaxWidth | default (site.Params.imageViewerMaxWidth) | default 1280 -}}
+{{- $pageWidth := .Params.imageViewerPageWidth | default (site.Params.imageViewerPageWidth) | default $maxWidth -}}
+{{- $thumbsWidth := .Params.imageViewerThumbsWidth | default (site.Params.imageViewerThumbsWidth) | default 190 -}}
 {{- $caption := i18n "viewMoreImages" | default "View more images" -}}
-{{ $images := slice }}
+{{- $images := slice -}}
+{{- $missing := slice -}}
+{{- $convertible := slice "jpeg" "png" "webp" -}}
 
 {{/* create variants */}}
 {{- range .Params.resources -}}
@@ -10,27 +13,28 @@
         {{- $image := $.Resources.GetMatch .src -}}
         {{- if $image -}}
             {{- $imageDisplay := $image -}}
-            {{- if gt $imageDisplay.Width $maxWidth -}}
-                {{- $image = $imageDisplay.Resize (printf "%dx" $maxWidth) -}}
+            {{- if in $convertible $imageDisplay.MediaType.SubType -}}
+                {{- $orig := $imageDisplay.Resize (printf "%dx webp" (int (math.Min $imageDisplay.Width $maxWidth))) -}}
+                {{- $front := $imageDisplay.Resize (printf "%dx webp" (int (math.Min $imageDisplay.Width $pageWidth))) -}}
+                {{- $thumb := $imageDisplay.Resize (printf "%dx webp" $thumbsWidth) -}}
+                {{- $images = $images | append (dict "orig" $orig "front" $front "thumb" $thumb) -}}
+            {{- else -}}
+                {{- $images = $images | append (dict "orig" $imageDisplay "front" $imageDisplay "thumb" $imageDisplay) -}}
             {{- end -}}
-            {{- if eq $image.MediaType.SubType "png" -}}
-              {{- $image = $imageDisplay.Resize (printf "%dx jpg" (int (math.Min $imageDisplay.Width $maxWidth))) -}}
-            {{- end -}}
-            {{- $thumb := $imageDisplay.Resize (printf "%dx jpg" $thumbsWidth) -}}
-            {{- $images = $images | append (dict "orig" $image "front" $imageDisplay "thumb" $thumb) -}}
         {{- else -}}
-            <div class="image-viewer-error">Couldn't load image "{{ $src }}"</div>
+            {{- $missing = $missing | append $src -}}
         {{- end -}}
     {{- end -}}
 {{- end -}}
 
+{{- if $missing -}}
+    {{- errorf "image-viewer: image(s) %q not found in the page resources of %q" (delimit $missing ", ") $.RelPermalink -}}
+{{- end -}}
+
+{{- if $images -}}
 <div class="image-viewer">
-    {{- if (index $images 0) -}}
-        {{- $firstImage := index (index $images 0) "front" -}}
-        <img class="front" src="{{ $firstImage.RelPermalink }}" alt="{{ $.Title }}">
-    {{- else }}
-        <div class="image-viewer-error">First image missing</div>
-    {{- end -}}
+    {{- $firstImage := index (index $images 0) "front" -}}
+    <img class="front" src="{{ $firstImage.RelPermalink }}" alt="{{ $.Title }}">
     {{- if gt (len $images) 0 -}}
         <div class="thumbs">
             <div class="caption">{{ $caption }}</div>
@@ -46,3 +50,4 @@
         </div>
     {{- end -}}
 </div>
+{{- end -}}
