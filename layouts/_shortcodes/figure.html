@@ -13,7 +13,7 @@
         {{- else -}}
             {{- /* If the image is a page bundle resource, serve a WebP derivative (AutoOrient respects the Exif orientation tag). */ -}}
             {{- $resource := $.Page.Resources.Get $image -}}
-            {{- if and $resource (eq $resource.ResourceType "image") -}}
+            {{- if and $resource (reflect.IsImageResourceProcessable $resource) -}}
                 {{- $webp := $resource.Filter (slice images.AutoOrient (images.Process "webp q80")) -}}
                 <img src="{{ $webp.RelPermalink }}"
                 {{- if not (.Get "width") }} width="{{ $webp.Width }}"{{ end -}}
